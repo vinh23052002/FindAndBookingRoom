@@ -6,12 +6,15 @@ namespace API.Models
     public class Ward
     {
         [Key]
-        public int wardID { get; set; }
-        public string wardName { get; set; }
-        public string wardType { get; set; }
-        public int districtID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ward_id { get; set; }
+        public string ward_name { get; set; }
+        public string ward_type { get; set; }
+        public int district_id { get; set; }
+        public string? lat { get; set; }
+        public string? lng { get; set; }
 
-        [ForeignKey("districtID")]
+        [ForeignKey("district_id")]
         public District District { get; set; }
 
         public ICollection<User> Users { get; set; }

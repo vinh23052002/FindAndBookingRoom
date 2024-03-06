@@ -24,26 +24,29 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.District", b =>
                 {
-                    b.Property<int>("districtID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("district_id")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("districtID"), 1L, 1);
-
-                    b.Property<string>("districtName")
+                    b.Property<string>("district_name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("districtType")
+                    b.Property<string>("district_type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("provinceID")
+                    b.Property<string>("lat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lng")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("province_id")
                         .HasColumnType("int");
 
-                    b.HasKey("districtID");
+                    b.HasKey("district_id");
 
-                    b.HasIndex("provinceID");
+                    b.HasIndex("province_id");
 
                     b.ToTable("Districts");
                 });
@@ -113,21 +116,18 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Province", b =>
                 {
-                    b.Property<int>("provinceID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("province_id")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("provinceID"), 1L, 1);
-
-                    b.Property<string>("provienceType")
+                    b.Property<string>("province_name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("provinceName")
+                    b.Property<string>("province_type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("provinceID");
+                    b.HasKey("province_id");
 
                     b.ToTable("Provinces");
                 });
@@ -323,26 +323,29 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Ward", b =>
                 {
-                    b.Property<int>("wardID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("ward_id")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("wardID"), 1L, 1);
-
-                    b.Property<int>("districtID")
+                    b.Property<int>("district_id")
                         .HasColumnType("int");
 
-                    b.Property<string>("wardName")
+                    b.Property<string>("lat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lng")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ward_name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("wardType")
+                    b.Property<string>("ward_type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("wardID");
+                    b.HasKey("ward_id");
 
-                    b.HasIndex("districtID");
+                    b.HasIndex("district_id");
 
                     b.ToTable("Wards");
                 });
@@ -351,7 +354,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Province", "Province")
                         .WithMany("Districts")
-                        .HasForeignKey("provinceID")
+                        .HasForeignKey("province_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -460,7 +463,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.District", "District")
                         .WithMany("Wards")
-                        .HasForeignKey("districtID")
+                        .HasForeignKey("district_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitailCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,14 +13,13 @@ namespace API.Migrations
                 name: "Provinces",
                 columns: table => new
                 {
-                    provinceID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    provinceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    provienceType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    province_id = table.Column<int>(type: "int", nullable: false),
+                    province_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    province_type = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Provinces", x => x.provinceID);
+                    table.PrimaryKey("PK_Provinces", x => x.province_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,20 +54,21 @@ namespace API.Migrations
                 name: "Districts",
                 columns: table => new
                 {
-                    districtID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    districtName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    districtType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    provinceID = table.Column<int>(type: "int", nullable: false)
+                    district_id = table.Column<int>(type: "int", nullable: false),
+                    district_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    district_type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    lat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lng = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    province_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Districts", x => x.districtID);
+                    table.PrimaryKey("PK_Districts", x => x.district_id);
                     table.ForeignKey(
-                        name: "FK_Districts_Provinces_provinceID",
-                        column: x => x.provinceID,
+                        name: "FK_Districts_Provinces_province_id",
+                        column: x => x.province_id,
                         principalTable: "Provinces",
-                        principalColumn: "provinceID",
+                        principalColumn: "province_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -76,20 +76,21 @@ namespace API.Migrations
                 name: "Wards",
                 columns: table => new
                 {
-                    wardID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    wardName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    wardType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    districtID = table.Column<int>(type: "int", nullable: false)
+                    ward_id = table.Column<int>(type: "int", nullable: false),
+                    ward_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ward_type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    district_id = table.Column<int>(type: "int", nullable: false),
+                    lat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lng = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wards", x => x.wardID);
+                    table.PrimaryKey("PK_Wards", x => x.ward_id);
                     table.ForeignKey(
-                        name: "FK_Wards_Districts_districtID",
-                        column: x => x.districtID,
+                        name: "FK_Wards_Districts_district_id",
+                        column: x => x.district_id,
                         principalTable: "Districts",
-                        principalColumn: "districtID",
+                        principalColumn: "district_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -119,7 +120,7 @@ namespace API.Migrations
                         name: "FK_Users_Wards_wardID",
                         column: x => x.wardID,
                         principalTable: "Wards",
-                        principalColumn: "wardID",
+                        principalColumn: "ward_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -156,7 +157,7 @@ namespace API.Migrations
                         name: "FK_Rooms_Wards_wardID",
                         column: x => x.wardID,
                         principalTable: "Wards",
-                        principalColumn: "wardID");
+                        principalColumn: "ward_id");
                 });
 
             migrationBuilder.CreateTable(
@@ -256,9 +257,9 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Districts_provinceID",
+                name: "IX_Districts_province_id",
                 table: "Districts",
-                column: "provinceID");
+                column: "province_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_roomID",
@@ -301,9 +302,9 @@ namespace API.Migrations
                 column: "wardID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wards_districtID",
+                name: "IX_Wards_district_id",
                 table: "Wards",
-                column: "districtID");
+                column: "district_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

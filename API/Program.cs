@@ -1,4 +1,6 @@
 using API.Models;
+using API.Repositoriest;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -17,6 +19,17 @@ namespace API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Add services and repositories to the container.
+            builder.Services.AddScoped<IProvinceRepository, ProvinceRepository>();
+            builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
+            builder.Services.AddScoped<IWardRepository, WardRepository>();
+
+            builder.Services.AddScoped<IProvinceService, ProvinceService>();
+            builder.Services.AddScoped<IDistrictService, DistrictService>();
+            builder.Services.AddScoped<IWardService, WardService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,6 +38,7 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            //app.UseMiddleware<ExceptionMiddleWare>();
 
             app.UseHttpsRedirection();
 
