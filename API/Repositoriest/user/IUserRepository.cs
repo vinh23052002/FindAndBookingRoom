@@ -5,5 +5,6 @@ namespace API.Repositoriest.user
 {
     public interface IUserRepository : IRepository<User>
     {
+        Task<User> GetUserById(string id);
     }
 }

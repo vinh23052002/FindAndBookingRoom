@@ -13,6 +13,7 @@ using API.Repositoriest.ward;
 using API.Services.district;
 using API.Services.image;
 using API.Services.province;
+using API.Services.review;
 using API.Services.room_amenities;
 using API.Services.room_amenities_mapping;
 using API.Services.ward;
@@ -52,6 +53,7 @@ namespace API
             builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
 
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
