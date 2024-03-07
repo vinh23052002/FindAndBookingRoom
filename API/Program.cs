@@ -1,6 +1,5 @@
 using API.Models;
 using API.Repositoriest.district;
-using API.Repositoriest.GenericRepository;
 using API.Repositoriest.image;
 using API.Repositoriest.message;
 using API.Repositoriest.province;
@@ -48,19 +47,19 @@ namespace API
             builder.Services.AddScoped<IImageRepository, ImageRepository>();
             builder.Services.AddScoped<IImageService, ImageService>();
 
-            builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
+            builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
-            builder.Services.AddScoped<IRepository<Review>, ReviewRepository>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
-            builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
-            builder.Services.AddScoped<IRepository<RoomAmenities>, RoomAmenitiesRepository>();
+            builder.Services.AddScoped<IRoomAmenitiesRepository, RoomAmenitiesRepository>();
 
-            builder.Services.AddScoped<IRepository<RoomAmenitiesMapping>, RoomAmenitiesMappingRepository>();
+            builder.Services.AddScoped<IRoomAmenitiesMappingRepository, RoomAmenitiesMappingRepository>();
 
-            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
