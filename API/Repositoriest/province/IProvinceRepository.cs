@@ -1,7 +1,7 @@
 ﻿using API.Dtos.Province;
 using API.Models;
 
-namespace API.Repositoriest
+namespace API.Repositoriest.province
 {
     public interface IProvinceRepository
     {

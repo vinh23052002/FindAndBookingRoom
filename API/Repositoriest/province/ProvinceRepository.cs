@@ -3,7 +3,7 @@ using API.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Repositoriest
+namespace API.Repositoriest.province
 {
     public class ProvinceRepository : IProvinceRepository
     {

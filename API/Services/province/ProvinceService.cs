@@ -1,9 +1,9 @@
 ﻿using API.Dtos.Province;
 using API.Exceptions;
-using API.Repositoriest;
+using API.Repositoriest.province;
 using System.Net;
 
-namespace API.Services
+namespace API.Services.province
 {
     public class ProvinceService : IProvinceService
     {

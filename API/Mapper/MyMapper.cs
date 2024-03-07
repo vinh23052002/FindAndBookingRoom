@@ -1,4 +1,5 @@
 ﻿using API.Dtos.District;
+using API.Dtos.Image;
 using API.Dtos.Province;
 using API.Dtos.Ward;
 using API.Models;
@@ -18,6 +19,10 @@ namespace API.Mapper
 
             CreateMap<Ward, WardResponse>();
             CreateMap<WardRequest, Ward>();
+
+            CreateMap<Image, ImageResponse>();
+            CreateMap<ImageRequest, Image>();
+
         }
     }
 }

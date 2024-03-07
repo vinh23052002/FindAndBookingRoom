@@ -1,8 +1,8 @@
 ﻿using API.Dtos.Ward;
 
-namespace API.Repositoriest
+namespace API.Services.ward
 {
-    public interface IWardRepository
+    public interface IWardService
     {
         Task<WardResponse> AddWard(WardRequest wardRequest);
         Task<WardResponse> GetWard(int id);

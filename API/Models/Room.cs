@@ -16,7 +16,7 @@ namespace API.Models
         [DataType(DataType.Date)]
         public DateTime createDate { get; set; }
         [DataType(DataType.Date)]
-        public DateTime publicDate { get; set; }
+        public DateTime? publicDate { get; set; }
         [DataType(DataType.Date)]
         public DateTime? deleteAt { get; set; }
         [StringLength(1000)]

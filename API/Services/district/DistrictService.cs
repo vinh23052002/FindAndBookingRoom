@@ -1,9 +1,10 @@
 ﻿using API.Dtos.District;
 using API.Exceptions;
-using API.Repositoriest;
+using API.Repositoriest.district;
+using API.Repositoriest.province;
 using System.Net;
 
-namespace API.Services
+namespace API.Services.district
 {
     public class DistrictService : IDistrictService
     {

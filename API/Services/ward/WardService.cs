@@ -1,9 +1,10 @@
 ﻿using API.Dtos.Ward;
 using API.Exceptions;
-using API.Repositoriest;
+using API.Repositoriest.district;
+using API.Repositoriest.ward;
 using System.Net;
 
-namespace API.Services
+namespace API.Services.ward
 {
     public class WardService : IWardService
     {

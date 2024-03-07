@@ -1,6 +1,6 @@
 ﻿using API.Dtos.Province;
 
-namespace API.Services
+namespace API.Services.province
 {
     public interface IProvinceService
     {

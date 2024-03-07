@@ -1,8 +1,8 @@
 ﻿using API.Dtos.District;
 
-namespace API.Services
+namespace API.Repositoriest.district
 {
-    public interface IDistrictService
+    public interface IDistrictRepository
     {
         Task<DistrictResponse> AddDistrict(DistrictRequest districtRequest);
         Task<DistrictResponse> GetDistrict(int id);

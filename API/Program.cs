@@ -1,6 +1,20 @@
 using API.Models;
-using API.Repositoriest;
-using API.Services;
+using API.Repositoriest.district;
+using API.Repositoriest.GenericRepository;
+using API.Repositoriest.image;
+using API.Repositoriest.message;
+using API.Repositoriest.province;
+using API.Repositoriest.review;
+using API.Repositoriest.role;
+using API.Repositoriest.room;
+using API.Repositoriest.room_amenities;
+using API.Repositoriest.room_amenties_mapping;
+using API.Repositoriest.user;
+using API.Repositoriest.ward;
+using API.Services.district;
+using API.Services.image;
+using API.Services.province;
+using API.Services.ward;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -23,12 +37,30 @@ namespace API
 
             // Add services and repositories to the container.
             builder.Services.AddScoped<IProvinceRepository, ProvinceRepository>();
-            builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
-            builder.Services.AddScoped<IWardRepository, WardRepository>();
-
             builder.Services.AddScoped<IProvinceService, ProvinceService>();
+
+            builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
             builder.Services.AddScoped<IDistrictService, DistrictService>();
+
+            builder.Services.AddScoped<IWardRepository, WardRepository>();
             builder.Services.AddScoped<IWardService, WardService>();
+
+            builder.Services.AddScoped<IImageRepository, ImageRepository>();
+            builder.Services.AddScoped<IImageService, ImageService>();
+
+            builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
+
+            builder.Services.AddScoped<IRepository<Review>, ReviewRepository>();
+
+            builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
+
+            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
+            builder.Services.AddScoped<IRepository<RoomAmenities>, RoomAmenitiesRepository>();
+
+            builder.Services.AddScoped<IRepository<RoomAmenitiesMapping>, RoomAmenitiesMappingRepository>();
+
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
 
             var app = builder.Build();
 

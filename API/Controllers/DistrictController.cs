@@ -1,6 +1,6 @@
 ﻿using API.Dtos.District;
 using API.Response;
-using API.Services;
+using API.Services.district;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

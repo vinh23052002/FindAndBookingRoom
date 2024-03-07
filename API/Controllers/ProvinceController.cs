@@ -1,6 +1,6 @@
 ﻿using API.Dtos.Province;
 using API.Response;
-using API.Services;
+using API.Services.province;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

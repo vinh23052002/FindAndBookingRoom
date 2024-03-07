@@ -1,6 +1,6 @@
 ﻿using API.Dtos.Ward;
 using API.Response;
-using API.Services;
+using API.Services.ward;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
