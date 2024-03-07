@@ -13,6 +13,7 @@ using API.Repositoriest.ward;
 using API.Services.district;
 using API.Services.image;
 using API.Services.province;
+using API.Services.room_amenities;
 using API.Services.ward;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,6 +57,7 @@ namespace API
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
             builder.Services.AddScoped<IRoomAmenitiesRepository, RoomAmenitiesRepository>();
+            builder.Services.AddScoped<IRoomAmenitiesService, RoomAmenitiesService>();
 
             builder.Services.AddScoped<IRoomAmenitiesMappingRepository, RoomAmenitiesMappingRepository>();
 
