@@ -14,6 +14,7 @@ using API.Services.district;
 using API.Services.image;
 using API.Services.province;
 using API.Services.review;
+using API.Services.room;
 using API.Services.room_amenities;
 using API.Services.room_amenities_mapping;
 using API.Services.user;
@@ -79,6 +80,7 @@ namespace API
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+            builder.Services.AddScoped<IRoomService, RoomService>();
 
             builder.Services.AddScoped<IRoomAmenitiesRepository, RoomAmenitiesRepository>();
             builder.Services.AddScoped<IRoomAmenitiesService, RoomAmenitiesService>();

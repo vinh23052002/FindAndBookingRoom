@@ -5,5 +5,6 @@ namespace API.Repositoriest.room
 {
     public interface IRoomRepository : IRepository<Room>
     {
+        Task ChangeStatus(int id);
     }
 }

@@ -8,5 +8,6 @@ namespace API.Repositoriest.ward
         Task<WardResponse> GetWard(int id);
         Task<List<WardResponse>> GetWards();
         Task<List<WardResponse>> GetWardsByDistrictID(int id);
+
     }
 }

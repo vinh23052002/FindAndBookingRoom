@@ -78,6 +78,10 @@ namespace API.Services.user
             {
                 throw new MyException((int)HttpStatusCode.NotFound, "User not found");
             }
+            if (await _userRepository.GetUserById(request.userID) != null)
+            {
+                throw new MyException((int)HttpStatusCode.NotFound, "User already exists");
+            }
             if (await _userRepository.GetUserByEmail(request.email) != null)
             {
                 throw new MyException((int)HttpStatusCode.NotFound, "Email already exists");

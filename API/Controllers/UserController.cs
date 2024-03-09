@@ -29,14 +29,14 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpPost("update-profile")]
+        [HttpPut("update-profile")]
         public async Task<IActionResult> UpdateProfile(UserUpdateProfileRequest request)
         {
             var response = await _userService.UpdateProfile(request);
             return Ok(response);
         }
 
-        [HttpPost("change-status")]
+        [HttpPut("change-status")]
         public async Task<IActionResult> ChangeStatus(string id)
         {
             var response = await _userService.ChangeStatus(id);
@@ -50,7 +50,7 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpPost("update-user")]
+        [HttpPut("update-user")]
         public async Task<IActionResult> UpdateUser(UserRequest request)
         {
             var response = await _userService.UpdateUser(request);
