@@ -43,6 +43,7 @@ namespace API.Mapper
 
             CreateMap<User, UserResponse>();
             CreateMap<UserRequest, User>();
+            CreateMap<UserUpdateProfileRequest, User>();
 
             CreateMap<RoomAmenitiesMapping, RoomAmenitiesMappingResponse>();
             CreateMap<RoomAmenitiesMappingRequest, RoomAmenitiesMapping>();
