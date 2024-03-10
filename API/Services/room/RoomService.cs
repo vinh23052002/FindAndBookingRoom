@@ -6,6 +6,7 @@ using API.Repositoriest.user;
 using API.Repositoriest.ward;
 using API.Response;
 using AutoMapper;
+using FluentValidation;
 using System.Net;
 
 namespace API.Services.room
@@ -16,13 +17,15 @@ namespace API.Services.room
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IWardRepository _wardRepository;
+        private readonly IValidator<RoomAddRequest> _roomAddValidator;
 
-        public RoomService(IRoomRepository roomRepository, IMapper mapper, IUserRepository userRepository, IWardRepository wardRepository)
+        public RoomService(IRoomRepository roomRepository, IMapper mapper, IUserRepository userRepository, IWardRepository wardRepository, IValidator<RoomAddRequest> roomAddValidator)
         {
             _roomRepository = roomRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _wardRepository = wardRepository;
+            _roomAddValidator = roomAddValidator;
         }
 
         public async Task<SuccessResponse> GetRooms()
@@ -47,6 +50,25 @@ namespace API.Services.room
 
         public async Task<SuccessResponse> CreateRoom(RoomAddRequest request)
         {
+            var validationResult = await _roomAddValidator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .Select(g => g.First())
+                    .ToDictionary(failure => failure.PropertyName, failure => failure.ErrorMessage)
+                    ;
+                return new SuccessResponse
+                {
+                    Message = "Create room failed",
+                    Errors = new ErrorResponse
+                    {
+                        StatusCode = (int)HttpStatusCode.BadRequest,
+                        Data = errors
+                    }
+                };
+
+            }
             if (request == null)
             {
                 throw new MyException((int)HttpStatusCode.BadRequest, "Request is null");
@@ -73,6 +95,27 @@ namespace API.Services.room
 
         public async Task<SuccessResponse> UpdateRoom(RoomUpdateRequest request)
         {
+            var requestAdd = _mapper.Map<RoomAddRequest>(request);
+            var validationResult = await _roomAddValidator.ValidateAsync(requestAdd);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .Select(g => g.First())
+                    .ToDictionary(failure => failure.PropertyName, failure => failure.ErrorMessage)
+                    ;
+                return new SuccessResponse
+                {
+                    Message = "Create room failed",
+                    Errors = new ErrorResponse
+                    {
+                        StatusCode = (int)HttpStatusCode.BadRequest,
+                        Data = errors
+                    }
+                };
+
+            }
+
             var room = await _roomRepository.GetById(request.roomID);
             if (room == null)
             {

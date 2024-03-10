@@ -32,11 +32,11 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRoom(RoomAddRequest request)
         {
-            if (ModelState.IsValid == false)
-            {
-                return BadRequest(ModelState);
-            }
             var response = await _roomService.CreateRoom(request);
+            if (response.Errors != null)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
@@ -44,6 +44,17 @@ namespace API.Controllers
         public async Task<IActionResult> ChangeStatus(int id)
         {
             var response = await _roomService.ChangeStatus(id);
+            return Ok(response);
+        }
+
+        [HttpPut("update-room")]
+        public async Task<IActionResult> UpdateRoom(RoomUpdateRequest request)
+        {
+            var response = await _roomService.UpdateRoom(request);
+            if (response.Errors != null)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 

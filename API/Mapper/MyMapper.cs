@@ -42,6 +42,7 @@ namespace API.Mapper
             CreateMap<RoomRequest, Room>();
             CreateMap<RoomAddRequest, Room>();
             CreateMap<RoomUpdateRequest, Room>();
+            CreateMap<RoomUpdateRequest, RoomAddRequest>();
 
             CreateMap<User, UserResponse>();
             CreateMap<UserRequest, User>();

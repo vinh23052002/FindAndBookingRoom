@@ -1,3 +1,4 @@
+using API.Dtos.Room;
 using API.Models;
 using API.Repositoriest.district;
 using API.Repositoriest.image;
@@ -19,6 +20,8 @@ using API.Services.room_amenities;
 using API.Services.room_amenities_mapping;
 using API.Services.user;
 using API.Services.ward;
+using API.Validators.room;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -35,30 +38,6 @@ namespace API
             // Add services to the container.
             builder.Services.AddDbContext<RoomContext>(options =>
                            options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                        ValidAudience = builder.Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                    };
-                });
-
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             // Add services and repositories to the container.
             builder.Services.AddScoped<IProvinceRepository, ProvinceRepository>();
             builder.Services.AddScoped<IProvinceService, ProvinceService>();
@@ -90,6 +69,42 @@ namespace API
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+
+            // Add service of validation
+            builder.Services.AddScoped<IValidator<RoomAddRequest>, RoomAddValidator>();
+
+
+            //builder.Services.AddControllers(options =>
+            //{
+            //    options.Filters.Add<ModelStateValidationActionFilter>();
+            //})
+            //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RoomValidator>());
+            builder.Services.AddControllers();
+
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    };
+                });
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
             var app = builder.Build();
 
