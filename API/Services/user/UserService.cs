@@ -6,6 +6,7 @@ using API.Repositoriest.user;
 using API.Repositoriest.ward;
 using API.Response;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -21,14 +22,18 @@ namespace API.Services.user
         private readonly IRoleRepository _roleRepository;
         private readonly IConfiguration _config;
         private readonly IWardRepository _wardRepository;
+        private readonly IValidator<UserRequest> _validatorRequsest;
+        private readonly IValidator<UserUpdateProfileRequest> _validatorUpdateProfile;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository, IConfiguration config, IWardRepository wardRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository, IConfiguration config, IWardRepository wardRepository, IValidator<UserRequest> validatorRequsest, IValidator<UserUpdateProfileRequest> validatorUpdateProfile)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _roleRepository = roleRepository;
             _config = config;
             _wardRepository = wardRepository;
+            _validatorRequsest = validatorRequsest;
+            _validatorUpdateProfile = validatorUpdateProfile;
         }
 
         private string GenerateJSONWebToken(User userInfo)
@@ -73,6 +78,25 @@ namespace API.Services.user
 
         public async Task<SuccessResponse> Register(UserRequest request)
         {
+            // validate model
+            var validationResult = await _validatorRequsest.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .Select(g => g.First())
+                    .ToDictionary(failure => failure.PropertyName, failure => failure.ErrorMessage);
+                return new SuccessResponse
+                {
+                    Message = "Create user failed",
+                    Errors = new ErrorResponse
+                    {
+                        StatusCode = (int)HttpStatusCode.BadRequest,
+                        Data = errors
+                    }
+                };
+            }
+
             // check modelstate is valid
             if (request == null)
             {
@@ -123,6 +147,25 @@ namespace API.Services.user
 
         public async Task<SuccessResponse> UpdateUser(UserRequest request)
         {
+            // validate model
+            var validationResult = await _validatorRequsest.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .Select(g => g.First())
+                    .ToDictionary(failure => failure.PropertyName, failure => failure.ErrorMessage);
+                return new SuccessResponse
+                {
+                    Message = "Create user failed",
+                    Errors = new ErrorResponse
+                    {
+                        StatusCode = (int)HttpStatusCode.BadRequest,
+                        Data = errors
+                    }
+                };
+            }
+            //
             var user = await _userRepository.GetUserById(request.userID);
             if (user == null)
             {
@@ -157,6 +200,24 @@ namespace API.Services.user
 
         public async Task<SuccessResponse> UpdateProfile(UserUpdateProfileRequest request)
         {
+            // validate model
+            var validationResult = await _validatorUpdateProfile.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .Select(g => g.First())
+                    .ToDictionary(failure => failure.PropertyName, failure => failure.ErrorMessage);
+                return new SuccessResponse
+                {
+                    Message = "Update user failed",
+                    Errors = new ErrorResponse
+                    {
+                        StatusCode = (int)HttpStatusCode.BadRequest,
+                        Data = errors
+                    }
+                };
+            }
             var user = await _userRepository.GetUserById(request.userID);
             if (user == null)
             {

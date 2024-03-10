@@ -26,6 +26,10 @@ namespace API.Controllers
         public async Task<IActionResult> Register(UserRequest request)
         {
             var response = await _userService.Register(request);
+            if (response.Errors == null)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
@@ -33,6 +37,10 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateProfile(UserUpdateProfileRequest request)
         {
             var response = await _userService.UpdateProfile(request);
+            if (response.Errors == null)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
@@ -54,6 +62,10 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateUser(UserRequest request)
         {
             var response = await _userService.UpdateUser(request);
+            if (response.Errors == null)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 

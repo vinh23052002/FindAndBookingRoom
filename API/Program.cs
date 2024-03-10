@@ -1,4 +1,5 @@
 using API.Dtos.Room;
+using API.Dtos.User;
 using API.Models;
 using API.Repositoriest.district;
 using API.Repositoriest.image;
@@ -21,6 +22,7 @@ using API.Services.room_amenities_mapping;
 using API.Services.user;
 using API.Services.ward;
 using API.Validators.room;
+using API.Validators.user;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +74,9 @@ namespace API
 
             // Add service of validation
             builder.Services.AddScoped<IValidator<RoomAddRequest>, RoomAddValidator>();
+            builder.Services.AddScoped<IValidator<RoomUpdateRequest>, RoomUpdateValidator>();
+            builder.Services.AddScoped<IValidator<UserUpdateProfileRequest>, UserUpdateProfileValidator>();
+            builder.Services.AddScoped<IValidator<UserRequest>, UserAddValidator>();
 
 
             //builder.Services.AddControllers(options =>
