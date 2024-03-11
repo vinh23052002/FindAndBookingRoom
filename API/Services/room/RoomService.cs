@@ -1,6 +1,7 @@
 ﻿using API.Dtos.Room;
 using API.Exceptions;
 using API.Models;
+using API.Repositoriest.image;
 using API.Repositoriest.room;
 using API.Repositoriest.user;
 using API.Repositoriest.ward;
@@ -18,33 +19,61 @@ namespace API.Services.room
         private readonly IUserRepository _userRepository;
         private readonly IWardRepository _wardRepository;
         private readonly IValidator<RoomAddRequest> _roomAddValidator;
+        private readonly IImageRepository _imageRepository;
 
-        public RoomService(IRoomRepository roomRepository, IMapper mapper, IUserRepository userRepository, IWardRepository wardRepository, IValidator<RoomAddRequest> roomAddValidator)
+        public RoomService(IRoomRepository roomRepository, IMapper mapper, IUserRepository userRepository, IWardRepository wardRepository, IValidator<RoomAddRequest> roomAddValidator, IImageRepository imageRepository)
         {
             _roomRepository = roomRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _wardRepository = wardRepository;
             _roomAddValidator = roomAddValidator;
+            _imageRepository = imageRepository;
         }
 
         public async Task<SuccessResponse> GetRooms()
         {
             var rooms = await _roomRepository.GetAll();
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.province = ward.province;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
             return new SuccessResponse
             {
                 Message = "Get rooms successfully",
-                Data = _mapper.Map<List<RoomResponse>>(rooms)
+                Data = response
             };
         }
 
         public async Task<SuccessResponse> GetRoom(int id)
         {
             var room = await _roomRepository.GetById(id);
+            if (room == null)
+            {
+                throw new MyException((int)HttpStatusCode.NotFound, "Room not found");
+            }
+            var response = _mapper.Map<RoomResponse>(room);
+            var ward = await _wardRepository.GetWard(room.wardID);
+            response.ward = ward.ward_name;
+            response.district = ward.district;
+            response.province = ward.province;
+            var user = await _userRepository.GetUserById(room.userID);
+            response.actorName = user.fullName;
+            var images = await _imageRepository.GetImageByRoomId(room.roomID);
+            response.images = images.Select(p => p.url).ToList();
             return new SuccessResponse
             {
                 Message = "Get room successfully",
-                Data = _mapper.Map<RoomResponse>(room)
+                Data = response
             };
         }
 

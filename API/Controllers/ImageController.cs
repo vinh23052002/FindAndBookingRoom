@@ -29,6 +29,12 @@ namespace API.Controllers
             return Ok(image);
         }
 
+        [HttpGet("room/{id}")]
+        public async Task<ActionResult<ImageResponse>> GetImageByRoomID(int id)
+        {
+            var images = await _imageService.GetImageByRoomID(id);
+            return Ok(images);
+        }
         [HttpPost]
         public async Task<ActionResult<ImageResponse>> AddImage(ImageRequest imageRequest)
         {

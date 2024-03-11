@@ -18,7 +18,21 @@ namespace API.Repositoriest.ward
 
         public async Task<List<WardResponse>> GetWards()
         {
-            var wards = await roomContext.Wards.ToListAsync();
+            var wards = await roomContext.Wards
+                .Include(p => p.District)
+                .ThenInclude(p => p.Province)
+                .Select(p => new WardResponse
+                {
+                    ward_id = p.ward_id,
+                    ward_name = p.ward_name,
+                    ward_type = p.ward_type,
+                    district_id = p.district_id,
+                    lat = p.lat,
+                    lng = p.lng,
+                    district = p.District.district_name,
+                    province = p.District.Province.province_name
+                }).ToListAsync();
+
             return _mapper.Map<List<WardResponse>>(wards);
         }
 
@@ -32,7 +46,21 @@ namespace API.Repositoriest.ward
 
         public async Task<WardResponse> GetWard(int id)
         {
-            var ward = await roomContext.Wards.FirstOrDefaultAsync(x => x.ward_id == id);
+            var ward = await roomContext.Wards
+                .Include(p => p.District)
+                .ThenInclude(p => p.Province)
+                .Select(p => new WardResponse
+                {
+                    ward_id = p.ward_id,
+                    ward_name = p.ward_name,
+                    ward_type = p.ward_type,
+                    district_id = p.district_id,
+                    lat = p.lat,
+                    lng = p.lng,
+                    district = p.District.district_name,
+                    province = p.District.Province.province_name
+                })
+                .FirstOrDefaultAsync(x => x.ward_id == id);
             return _mapper.Map<WardResponse>(ward);
         }
 

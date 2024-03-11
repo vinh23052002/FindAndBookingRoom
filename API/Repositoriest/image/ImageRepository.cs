@@ -11,10 +11,13 @@ namespace API.Repositoriest.image
         {
         }
 
-        public async Task<Image> GetImageByRoomId(int roomId)
+        public async Task<List<Image>> GetImageByRoomId(int roomId)
         {
-            return await _context.Images.FirstOrDefaultAsync(i => i.roomID == roomId);
+            return await _context.Images
+                .Where(p => p.roomID == roomId)
+                .ToListAsync();
         }
+
     }
 
 }

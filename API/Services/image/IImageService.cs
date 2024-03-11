@@ -10,5 +10,6 @@ namespace API.Services.image
         Task<SuccessResponse> GetImages();
         Task<SuccessResponse> UpdateImage(int id, ImageRequest imageRequest);
         Task<SuccessResponse> DeleteImage(int id);
+        Task<SuccessResponse> GetImageByRoomID(int id);
     }
 }

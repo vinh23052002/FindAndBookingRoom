@@ -5,6 +5,6 @@ namespace API.Repositoriest.image
 {
     public interface IImageRepository : IRepository<Image>
     {
-        Task<Image> GetImageByRoomId(int roomId);
+        Task<List<Image>> GetImageByRoomId(int roomId);
     }
 }

@@ -26,5 +26,10 @@ namespace API.Dtos.Room
         public Boolean status { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
+        public string ward { get; set; }
+        public string district { get; set; }
+        public string province { get; set; }
+        public List<String> images { get; set; }
+        public string actorName { get; set; }
     }
 }

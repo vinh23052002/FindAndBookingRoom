@@ -8,5 +8,8 @@
         public int district_id { get; set; }
         public string? lat { get; set; }
         public string? lng { get; set; }
+
+        public string district { get; set; }
+        public string province { get; set; }
     }
 }

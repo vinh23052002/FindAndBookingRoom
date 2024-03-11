@@ -30,17 +30,17 @@ namespace API.Controllers
             });
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<WardResponse>> GetWard(int id)
-        //{
-        //    var ward = await _wardService.GetWard(id);
-        //    return Ok(new SuccessResponse
-        //    {
-        //        Message = "Get ward successfully",
-        //        Data = _mapper.Map<WardResponse>(ward)
-        //    });
+        [HttpGet("{id}")]
+        public async Task<ActionResult<WardResponse>> GetWard(int id)
+        {
+            var ward = await _wardService.GetWard(id);
+            return Ok(new SuccessResponse
+            {
+                Message = "Get ward successfully",
+                Data = _mapper.Map<WardResponse>(ward)
+            });
 
-        //}
+        }
 
 
         [HttpPost]

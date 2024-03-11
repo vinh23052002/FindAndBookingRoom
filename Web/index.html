@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/mystyles.css " rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#!">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Room Manager</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Shop</a
+              >
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <button class="btn btn-outline-dark" type="submit">
+              <i class="bi-cart-fill me-1"></i>
+              Cart
+              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+      <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Shop in style</h1>
+          <p class="lead fw-normal text-white-50 mb-0">
+            With this shop hompeage template
+          </p>
+        </div>
+      </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 justify-content-center">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="row g-0">
+                <!-- Product image-->
+                <div class="col-md-4 position-relative" style="height: 300px">
+                  <img
+                    class="card-img-top"
+                    src="image/rooms/received-788139695001120_1605491651.jpg"
+                    alt="..."
+                    height="300px"
+                  />
+                  <div
+                    class="position-absolute bottom-0 start-0 bg-white text-dark p-2 m-2"
+                  >
+                    4 ảnh
+                  </div>
+                  <span
+                    class="position-absolute bottom-0 end-0 text-danger m-2 heart-icon"
+                    style="font-size: 2rem; right: 0; bottom: 0"
+                    onclick="toggleHeart(this)"
+                    onhol
+                  >
+                    <img
+                      src="image/icon/unLike.png"
+                      alt="heart"
+                      style="width: 30px; height: 30px"
+                      class=""
+                    />
+                  </span>
+                </div>
+                <!-- Product details-->
+                <div class="col-md-8 d-flex flex-column" style="height: 100%">
+                  <div class="card-body ps-4 d-flex flex-column">
+                    <div>
+                      <!-- Product name-->
+                      <h5 class="fw-bolder text-primary">
+                        Cho thuê phòng trọ Đại Học Công Nghiệp ở 1 người giá rẻ
+                        tại Xuân Phương
+                      </h5>
+                      <br />
+                      <!-- Product price-->
+                      <div class="d-flex align-items-center">
+                        <p class="me-5 text-success fs-4 fw-bolder">
+                          800.000 đồng/tháng
+                        </p>
+                        <p class="me-3 ms-5 fs-5 fw-bolder text-">
+                          Diện tích:<span class="">30 m²</span>
+                        </p>
+                        <p class="ms-auto">05/03/2024</p>
+                      </div>
+                      <p class="fs-5 fw-bolder">
+                        Phường Phúc Xá, Quận Ba Đình, Thành phố Hà Nội
+                      </p>
+                      <div>
+                        <p class="limited-dimensions">
+                          Tiết kiệm chi phí mà được chủ động sinh hoạt 1 mình
+                          không phụ thuộc vào người ở cùng Phòng trọ rộng rãi
+                          đầy đủ tiện nghi: Máy giặt, tủ lạnh, máy sấy, nóng
+                          lạnh, điều hòa không phải đóng phí dịch vụ. Có phòng
+                          sinh hoạt chung để tiếp khách, học tập, có khu nấu ăn
+                          và ăn uống riêng view thành phố. Ngay cạnh Cao đẳng
+                          FPT, Cách đại học công nghiệp 2km. Nhà nằm trong khuôn
+                          viên khu đô thị đường sạch sẽ, ngay đầu đường Phòng ở
+                          1 người riêngtư có khóa antoàn 2 lớp. Phòng ở
+                          thoángmát, có máy lạnh Có người dọn vệ sinh WC, khu
+                          sinh hoạt chung tuần 2 ngày/lần Chỗ để xe siêu rộng, ô
+                          tô đỗ cửa
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="actor mt-auto ms-4 mb-2">
+                    <div class="actor d-flex align-items-center">
+                      <img
+                        src="image/icon/avatar.png"
+                        class="rounded-circle me-3"
+                        alt="actor name"
+                        style="width: 50px; height: 50px"
+                      />
+                      <h5 class="mb-0">Actor Name</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Repeat for each product -->
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2023
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script src="js/changeHear.js"></script>
+    <script src="js/loadData.js"></script>
+    <script></script>
+  </body>
+</html>

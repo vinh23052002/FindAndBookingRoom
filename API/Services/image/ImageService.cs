@@ -48,6 +48,21 @@ namespace API.Services.image
             };
         }
 
+        public async Task<SuccessResponse> GetImageByRoomID(int id)
+        {
+            var images = await _imageRepository.GetImageByRoomId(id);
+            if (images == null)
+            {
+                throw new MyException((int)HttpStatusCode.NotFound, "Images not found");
+            }
+            var imagesDto = _mapper.Map<List<ImageResponse>>(images);
+            return new SuccessResponse
+            {
+                Message = "Images retrieved successfully",
+                Data = imagesDto
+            };
+        }
+
         public async Task<SuccessResponse> AddImage(ImageRequest imageRequest)
         {
             if (imageRequest == null)

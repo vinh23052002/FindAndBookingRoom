@@ -1,0 +1,16 @@
+.heart-icon {
+  color: transparent; /* Hoặc màu bạn muốn khi chưa được chọn */
+}
+
+.limited-width {
+  max-height: 500px;
+  /* hoặc width: 100px; nếu bạn muốn chiều rộng cố định */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* để hiển thị dấu ba chấm khi văn bản bị cắt bớt */
+}
+
+.limited-dimensions {
+  max-height: 50px; /* Giới hạn chiều cao */
+  overflow: hidden; /* Ẩn phần vượt quá kích thước giới hạn */
+}
