@@ -1,5 +1,6 @@
 using API.Dtos.Room;
 using API.Dtos.User;
+using API.MiddleWares;
 using API.Models;
 using API.Repositoriest.district;
 using API.Repositoriest.image;
@@ -125,7 +126,7 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            //app.UseMiddleware<ExceptionMiddleWare>();
+            app.UseMiddleware<ExceptionMiddleWare>();
 
             app.UseHttpsRedirection();
             app.UseCors("AllowSpecificOrigin");

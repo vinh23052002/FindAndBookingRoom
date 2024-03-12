@@ -65,7 +65,7 @@ namespace API.Services.room_amenities_mapping
 
             if (await _roomAmenitiesMappingRepository.Get(roomAmenitiesMappingRequest.roomID, roomAmenitiesMappingRequest.amenitiesID) != null)
             {
-                throw new MyException((int)HttpStatusCode.BadRequest, "Room amenities mapping already exists");
+                throw new MyException((int)HttpStatusCode.BadRequest, "Room amenities  already exists");
             }
 
             if (roomAmenitiesMappingRequest == null)
@@ -109,7 +109,7 @@ namespace API.Services.room_amenities_mapping
             };
         }
 
-        public async Task<SuccessResponse> DeleteRoomAmenitiesMapping(RoomAmenitiesMappingRequest request)
+        public async Task<SuccessResponse> DeleteRoomAmenitiesMapping(RoomAmenitiesMappingDeleteRequest request)
         {
             var roomAmenitiesMapping = await _roomAmenitiesMappingRepository.GetRoomAmenitiesMappingByRoomId(request.roomID);
             if (roomAmenitiesMapping == null)

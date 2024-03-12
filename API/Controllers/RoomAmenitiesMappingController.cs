@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> RemoveRoomAmenitiesMapping(RoomAmenitiesMappingRequest roomAmenitiesMappingRequest)
+        public async Task<IActionResult> RemoveRoomAmenitiesMapping(RoomAmenitiesMappingDeleteRequest roomAmenitiesMappingRequest)
         {
             var response = await _roomAmenitiesMappingService.DeleteRoomAmenitiesMapping(roomAmenitiesMappingRequest);
             return Ok(response);

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .carousel-item img {
+        max-height: 400px; /* Điều chỉnh chiều cao tối đa của ảnh */
+        width: auto; /* Đảm bảo ảnh tự động điều chỉnh chiều rộng */
+        margin: auto; /* Canh giữa ảnh */
+      }
+
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+
+      #backToCurrentLocationButton {
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 3px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="p-3 text-center bg-white border-bottom">
+        <div class="container">
+          <div class="row gy-3">
+            <!-- Left elements -->
+            <div class="col-lg-2 col-sm-4 col-4">
+              <a
+                href="https://mdbootstrap.com/"
+                target="_blank"
+                class="float-start"
+              >
+                <img
+                  src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
+                  height="35"
+                />
+              </a>
+            </div>
+            <!-- Left elements -->
+
+            <!-- Center elements -->
+            <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+              <div class="d-flex float-end">
+                <a
+                  href="https://github.com/mdbootstrap/bootstrap-material-design"
+                  class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
+                  target="_blank"
+                >
+                  <i class="fas fa-user-alt m-1 me-md-2"></i>
+                  <p class="d-none d-md-block mb-0">Sign in</p>
+                </a>
+                <a
+                  href="https://github.com/mdbootstrap/bootstrap-material-design"
+                  class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
+                  target="_blank"
+                >
+                  <i class="fas fa-heart m-1 me-md-2"></i>
+                  <p class="d-none d-md-block mb-0">Wishlist</p>
+                </a>
+                <a
+                  href="https://github.com/mdbootstrap/bootstrap-material-design"
+                  class="border rounded py-1 px-3 nav-link d-flex align-items-center"
+                  target="_blank"
+                >
+                  <i class="fas fa-shopping-cart m-1 me-md-2"></i>
+                  <p class="d-none d-md-block mb-0">My cart</p>
+                </a>
+              </div>
+            </div>
+            <!-- Center elements -->
+
+            <!-- Right elements -->
+            <div class="col-lg-5 col-md-12 col-12">
+              <div class="input-group float-center">
+                <div class="form-outline">
+                  <input type="search" id="form1" class="form-control" />
+                  <label class="form-label" for="form1">Search</label>
+                </div>
+                <button type="button" class="btn btn-primary shadow-0">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <!-- Right elements -->
+          </div>
+        </div>
+      </div>
+      <!-- Jumbotron -->
+
+      <!-- Heading -->
+      <div class="bg-primary">
+        <div class="container py-4">
+          <!-- Breadcrumb -->
+          <nav class="d-flex">
+            <h6 class="mb-0">
+              <a href="" class="text-white-50">Home</a>
+              <span class="text-white-50 mx-2"> > </span>
+              <a href="" class="text-white-50">Library</a>
+              <span class="text-white-50 mx-2"> > </span>
+              <a href="" class="text-white"><u>Data</u></a>
+            </h6>
+          </nav>
+          <!-- Breadcrumb -->
+        </div>
+      </div>
+      <!-- Heading -->
+    </header>
+
+    <!-- content -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row gx-5">
+          <aside class="col-lg-6">
+            <div class="border rounded-4 mb-3 d-flex justify-content-center">
+              <a
+                data-fslightbox="mygalley"
+                class="rounded-4"
+                target="_blank"
+                data-type="image"
+                href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
+              >
+                <img
+                  style="max-width: 100%; max-height: 100vh; margin: auto"
+                  class="big-image rounded-4 fit"
+                  src="image/rooms/received-788139695001120_1605491651.jpg"
+                />
+              </a>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+              <a
+                data-fslightbox="mygalley"
+                class="small-image border mx-1 rounded-2"
+                target="_blank"
+                data-type="image"
+                href="#"
+                class="item-thumb"
+              >
+                <img
+                  width="60"
+                  height="60"
+                  class="rounded-2"
+                  src="image/rooms/17875bbc8453620d3b42_1600389983.jpg"
+                />
+              </a>
+              <a
+                data-fslightbox="mygalley"
+                class="small-image border mx-1 rounded-2"
+                target="_blank"
+                data-type="image"
+                href="#"
+                class="item-thumb"
+              >
+                <img
+                  width="60"
+                  height="60"
+                  class="rounded-2"
+                  src="image/rooms/nha_1562724901.jpg"
+                />
+              </a>
+              <a
+                data-fslightbox="mygalley"
+                class="small-image border mx-1 rounded-2"
+                target="_blank"
+                data-type="image"
+                href="#"
+                class="item-thumb"
+              >
+                <img
+                  width="60"
+                  height="60"
+                  class="rounded-2"
+                  src="image/rooms/nt001_1562724892.jpg"
+                />
+              </a>
+              <a
+                data-fslightbox="mygalley"
+                class="small-image border mx-1 rounded-2"
+                target="_blank"
+                data-type="image"
+                href="#"
+                class="item-thumb"
+              >
+                <img
+                  width="60"
+                  height="60"
+                  class="rounded-2"
+                  src="image/rooms/17875bbc8453620d3b42_1600389983.jpg"
+                />
+              </a>
+              <a
+                data-fslightbox="mygalley"
+                class="small-image border mx-1 rounded-2"
+                target="_blank"
+                data-type="image"
+                href="#"
+                class="item-thumb"
+              >
+                <img
+                  width="60"
+                  height="60"
+                  class="rounded-2"
+                  src="image/rooms/nha_1562724901.jpg"
+                />
+              </a>
+              <a
+                data-fslightbox="mygalley"
+                class="small-image border mx-1 rounded-2"
+                target="_blank"
+                data-type="image"
+                href="#"
+                class="item-thumb"
+              >
+                <img
+                  width="60"
+                  height="60"
+                  class="rounded-2"
+                  src="image/rooms/nt001_1562724892.jpg"
+                />
+              </a>
+            </div>
+            <!-- thumbs-wrap.// -->
+            <!-- gallery-wrap .end// -->
+          </aside>
+          <main class="col-lg-6">
+            <div class="ps-lg-3">
+              <h4 class="title text-dark">
+                Cho thuê phòng trọ Đại Học Công Nghiệp ở 1 người giá rẻ tại Xuân
+                Phương
+              </h4>
+              <div class="d-flex flex-row my-3">
+                <div class="text-warning mb-1 me-2">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="ms-1"> 4.5 </span>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <span class="h5" id="price">800.000 </span>
+                <span class="text-muted">đồng/tháng</span>
+              </div>
+
+              <p></p>
+
+              <div class="row">
+                <dt class="col-3">Diện tích:</dt>
+                <dd class="col-9" id="area">30 m²</dd>
+
+                <dt class="col-3">Tỉnh</dt>
+                <dd class="col-9" id="province">Thành phố Hà Nội</dd>
+
+                <dt class="col-3">Huyện</dt>
+                <dd class="col-9" id="district">Quận Ba Đình</dd>
+
+                <dt class="col-3">Phường/Quận</dt>
+                <dd class="col-9" id="ward">Phường Phúc Xá</dd>
+              </div>
+
+              <hr />
+
+              <div class="row mb-4">
+                <!-- col.// -->
+              </div>
+              <div class="d-flex flex-column">
+                <a href="#" class="m-2 btn btn-warning shadow-0">
+                  Yêu cầu liên hệ
+                </a>
+                <a
+                  href="https://zalo.me/0522964529"
+                  class="m-2 btn btn-primary shadow-0"
+                  id="zalo"
+                >
+                  <img
+                    src="image/icon/zalo.svg.png"
+                    width="20px"
+                    height="20px"
+                  />
+                  Chat qua Zalo
+                </a>
+                <a
+                  href="#"
+                  class="m-2 btn btn-light border border-secondary py-2 icon-hover px-3"
+                >
+                  <i class="me-1 fa fa-heart fa-lg"></i> Save
+                </a>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+    <!-- content -->
+
+    <section class="bg-light border-top py-4">
+      <div class="container">
+        <div class="row gx-4">
+          <div class="col-lg-8 mb-4">
+            <div class="border rounded-2 px-3 py-2 bg-white">
+              <!-- Pills navs -->
+              <ul
+                class="nav nav-pills nav-justified mb-3"
+                id="ex1"
+                role="tablist"
+              >
+                <li class="nav-item d-flex" role="presentation">
+                  <a
+                    class="category nav-link d-flex align-items-center justify-content-center w-100 active"
+                    id="ex1-tab-1"
+                    data-mdb-toggle="pill"
+                    href="ex1-pills-1"
+                    role="tab"
+                    aria-controls="ex1-pills-1"
+                    aria-selected="true"
+                    >Thông Tin</a
+                  >
+                </li>
+                <li class="nav-item d-flex" role="presentation">
+                  <a
+                    class="category nav-link d-flex align-items-center justify-content-center w-100"
+                    id="ex1-tab-2"
+                    data-mdb-toggle="pill"
+                    href="ex1-pills-2"
+                    role="tab"
+                    aria-controls="ex1-pills-2"
+                    aria-selected="false"
+                    >Map</a
+                  >
+                </li>
+              </ul>
+              <!-- Pills navs -->
+
+              <!-- Pills content -->
+              <div class="tab-content" id="ex1-content">
+                <div
+                  class="tab-pane fade show active"
+                  id="ex1-pills-1"
+                  role="tabpanel"
+                  aria-labelledby="ex1-tab-1"
+                >
+                  <p id="description">
+                    Nhà 3 tầng còn 6 phòng cho thuê. Diện tích từ 12m2. Phòng
+                    khép kín và tập thể giá từ 800.000/th. Gần Viện Bỏng, Quân Y
+                    103, các trường An Ninh, Bưu Chính, bến xe Hà Đông, ĐHSP,
+                    ĐHQGHN, trường cấp 3 Lê Quý Đôn, Quang Trung, ADSL, điện,
+                    nước máy,... Có chỗ giữ xe miễn phí tại tầng 1. Khu dân cư
+                    yên tĩnh thích hợp cho học hành và làm việc. Cách các tuyến
+                    xe buýt ra vào trung tâm nội thành hay ngoại thành Hà Nội
+                    500m. Có chỗ phơi quần áo trên sân thượng. Có khoảng không
+                    giữa nhà để nhà luôn khô ráo thoáng đãng. LH: Chú Hà 57 Tô
+                    Hiến Thành, Quận Hà Đông, Hà Nội. Tel: 0522964529.
+                  </p>
+                  <div class="row mb-2"></div>
+                  <table class="table border mt-3 mb-2">
+                    <tr>
+                      <th class="py-2">Điện:</th>
+                      <td class="py-2">3.000 đ/số</td>
+                    </tr>
+                    <tr>
+                      <th class="py-2">Nước:</th>
+                      <td class="py-2">10.000 đ/m3</td>
+                    </tr>
+                    <tr>
+                      <th class="py-2">Vệ Sinh:</th>
+                      <td class="py-2">100.000 đ/tháng</td>
+                    </tr>
+                    <tr>
+                      <th class="py-2">Wifi</th>
+                      <td class="py-2">100.000 đ/tháng</td>
+                    </tr>
+                    <tr>
+                      <th class="py-2">Máy giặt</th>
+                      <td class="py-2">50.000 đ/tháng</td>
+                    </tr>
+                  </table>
+                </div>
+                <div
+                  class="tab-pane fade mb-2"
+                  id="ex1-pills-2"
+                  role="tabpanel"
+                  aria-labelledby="ex1-tab-2"
+                >
+                  <!-- ----------------------------------------------------- -->
+                  <div id="map"></div>
+
+                  <!-- ------------------------------------------------------------ -->
+                </div>
+                <div
+                  class="tab-pane fade mb-2"
+                  id="ex1-pills-3"
+                  role="tabpanel"
+                  aria-labelledby="ex1-tab-3"
+                >
+                  Another tab content or sample information now <br />
+                  Dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                  minim veniam, quis nostrud exercitation ullamco laboris nisi
+                  ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                  nulla pariatur. Excepteur sint occaecat cupidatat non
+                  proident, sunt in culpa qui officia deserunt mollit anim id
+                  est laborum.
+                </div>
+                <div
+                  class="tab-pane fade mb-2"
+                  id="ex1-pills-4"
+                  role="tabpanel"
+                  aria-labelledby="ex1-tab-4"
+                >
+                  Some other tab content or sample information now <br />
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum.
+                </div>
+              </div>
+              <!-- Pills content -->
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="px-0 border rounded-2 shadow-0">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Similar items</h5>
+                  <div class="d-flex mb-3">
+                    <a href="#" class="me-3">
+                      <img
+                        src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/8.webp"
+                        style="min-width: 96px; height: 96px"
+                        class="img-md img-thumbnail"
+                      />
+                    </a>
+                    <div class="info">
+                      <a href="#" class="nav-link mb-1">
+                        Rucksack Backpack Large <br />
+                        Line Mounts
+                      </a>
+                      <strong class="text-dark"> $38.90</strong>
+                    </div>
+                  </div>
+
+                  <div class="d-flex mb-3">
+                    <a href="#" class="me-3">
+                      <img
+                        src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/9.webp"
+                        style="min-width: 96px; height: 96px"
+                        class="img-md img-thumbnail"
+                      />
+                    </a>
+                    <div class="info">
+                      <a href="#" class="nav-link mb-1">
+                        Summer New Men's Denim <br />
+                        Jeans Shorts
+                      </a>
+                      <strong class="text-dark"> $29.50</strong>
+                    </div>
+                  </div>
+
+                  <div class="d-flex mb-3">
+                    <a href="#" class="me-3">
+                      <img
+                        src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp"
+                        style="min-width: 96px; height: 96px"
+                        class="img-md img-thumbnail"
+                      />
+                    </a>
+                    <div class="info">
+                      <a href="#" class="nav-link mb-1">
+                        T-shirts with multiple colors, for men and lady
+                      </a>
+                      <strong class="text-dark"> $120.00</strong>
+                    </div>
+                  </div>
+
+                  <div class="d-flex">
+                    <a href="#" class="me-3">
+                      <img
+                        src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/11.webp"
+                        style="min-width: 96px; height: 96px"
+                        class="img-md img-thumbnail"
+                      />
+                    </a>
+                    <div class="info">
+                      <a href="#" class="nav-link mb-1">
+                        Blazer Suit Dress Jacket for Men, Blue color
+                      </a>
+                      <strong class="text-dark"> $339.90</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-muted bg-primary mt-3">
+      <!-- Section: Links  -->
+      <section class="">
+        <div class="container text-center text-md-start pt-4 pb-4">
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-12 col-lg-3 col-sm-12 mb-2">
+              <!-- Content -->
+              <a
+                href="https://mdbootstrap.com/"
+                target="_blank"
+                class="text-white h2"
+              >
+                MDB
+              </a>
+              <p class="mt-1 text-white">© 2023 Copyright: MDBootstrap.com</p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-6 col-sm-4 col-lg-2">
+              <!-- Links -->
+              <h6 class="text-uppercase text-white fw-bold mb-2">Store</h6>
+              <ul class="list-unstyled mb-4">
+                <li><a class="text-white-50" href="#">About us</a></li>
+                <li><a class="text-white-50" href="#">Find store</a></li>
+                <li><a class="text-white-50" href="#">Categories</a></li>
+                <li><a class="text-white-50" href="#">Blogs</a></li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-6 col-sm-4 col-lg-2">
+              <!-- Links -->
+              <h6 class="text-uppercase text-white fw-bold mb-2">
+                Information
+              </h6>
+              <ul class="list-unstyled mb-4">
+                <li><a class="text-white-50" href="#">Help center</a></li>
+                <li><a class="text-white-50" href="#">Money refund</a></li>
+                <li><a class="text-white-50" href="#">Shipping info</a></li>
+                <li><a class="text-white-50" href="#">Refunds</a></li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-6 col-sm-4 col-lg-2">
+              <!-- Links -->
+              <h6 class="text-uppercase text-white fw-bold mb-2">Support</h6>
+              <ul class="list-unstyled mb-4">
+                <li><a class="text-white-50" href="#">Help center</a></li>
+                <li><a class="text-white-50" href="#">Documents</a></li>
+                <li><a class="text-white-50" href="#">Account restore</a></li>
+                <li><a class="text-white-50" href="#">My orders</a></li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-12 col-sm-12 col-lg-3">
+              <!-- Links -->
+              <h6 class="text-uppercase text-white fw-bold mb-2">Newsletter</h6>
+              <p class="text-white">
+                Stay in touch with latest updates about our products and offers
+              </p>
+              <div class="input-group mb-3">
+                <input
+                  type="email"
+                  class="form-control border"
+                  placeholder="Email"
+                  aria-label="Email"
+                  aria-describedby="button-addon2"
+                />
+                <button
+                  class="btn btn-light border shadow-0"
+                  type="button"
+                  id="button-addon2"
+                  data-mdb-ripple-color="dark"
+                >
+                  Join
+                </button>
+              </div>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+      </section>
+      <!-- Section: Links  -->
+
+      <div class="">
+        <div class="container">
+          <div class="d-flex justify-content-between py-4 border-top">
+            <!--- payment --->
+            <div>
+              <i class="fab fa-lg fa-cc-visa text-white"></i>
+              <i class="fab fa-lg fa-cc-amex text-white"></i>
+              <i class="fab fa-lg fa-cc-mastercard text-white"></i>
+              <i class="fab fa-lg fa-cc-paypal text-white"></i>
+            </div>
+            <!--- payment --->
+
+            <!--- language selector --->
+            <div class="dropdown dropup">
+              <a
+                class="dropdown-toggle text-white"
+                href="#"
+                id="Dropdown"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="flag-united-kingdom flag m-0 me-1"></i>English
+              </a>
+
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="Dropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-united-kingdom flag"></i>English
+                    <i class="fa fa-check text-success ms-2"></i
+                  ></a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-poland flag"></i>Polski</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-china flag"></i>中文</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-japan flag"></i>日本語</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-germany flag"></i>Deutsch</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-france flag"></i>Français</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-spain flag"></i>Español</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-russia flag"></i>Русский</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="flag-portugal flag"></i>Português</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!--- language selector --->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bootstrap JavaScript và các thư viện cần thiết khác -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script>
+        var mapLocation = {};
+        //get id from url
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        console.log("id", id);
+
+        Array.from(document.getElementsByClassName("small-image")).forEach(
+          (element) => {
+            element.addEventListener("click", (event) => {
+              event.preventDefault();
+              document.querySelector(".big-image").src =
+                element.children[0].src;
+            });
+          }
+        );
+      </script>
+      <script>
+        const loadData = async () => {
+          await fetch(`https://localhost:7140/api/Room/${id}`)
+            .then((response) => response.json())
+            .then((response) => {
+              var data = response.data;
+              console.log("data", data);
+              document.getElementById("price").innerText = data.price;
+              document.getElementById("area").innerText = data.area + " m²";
+              document.getElementById("province").innerText = data.province;
+              document.getElementById("district").innerText = data.district;
+              document.getElementById("ward").innerText = data.ward;
+              document.getElementById("description").innerText =
+                data.description;
+              document.getElementById(
+                "zalo"
+              ).href = `https://zalo.me/${data.phone}`;
+
+              mapLocation = {
+                lat: parseFloat(data.latitude),
+                lng: parseFloat(data.longitude),
+              };
+            });
+          initMap();
+        };
+        loadData();
+      </script>
+
+      <script>
+        Array.from(document.getElementsByClassName("category")).forEach(
+          (element) => {
+            element.addEventListener("click", (event) => {
+              event.preventDefault();
+              Array.from(document.getElementsByClassName("category")).forEach(
+                (element) => {
+                  element.classList.remove("active");
+                }
+              );
+              element.classList.add("active");
+
+              Array.from(document.getElementsByClassName("tab-pane")).forEach(
+                (element) => {
+                  element.classList.remove("show");
+                  element.classList.remove("active");
+                }
+              );
+              var content = document.getElementById(
+                element.getAttribute("href")
+              );
+              content.classList.add("show");
+              content.classList.add("active");
+            });
+          }
+        );
+      </script>
+
+      <script>
+        ((g) => {
+          var h,
+            a,
+            k,
+            p = "The Google Maps JavaScript API",
+            c = "google",
+            l = "importLibrary",
+            q = "__ib__",
+            m = document,
+            b = window;
+          b = b[c] || (b[c] = {});
+          var d = b.maps || (b.maps = {}),
+            r = new Set(),
+            e = new URLSearchParams(),
+            u = () =>
+              h ||
+              (h = new Promise(async (f, n) => {
+                await (a = m.createElement("script"));
+                e.set("libraries", [...r] + "");
+                for (k in g)
+                  e.set(
+                    k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()),
+                    g[k]
+                  );
+                e.set("callback", c + ".maps." + q);
+                a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                d[q] = f;
+                a.onerror = () => (h = n(Error(p + " could not load.")));
+                a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                m.head.append(a);
+              }));
+          d[l]
+            ? console.warn(p + " only loads once. Ignoring:", g)
+            : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)));
+        })({ key: "AIzaSyCzThSaiDTG3pw8sIIZn0MnyojtDYa0ra4", v: "weekly" });
+      </script>
+      <script>
+        // var mapLocation = { lat: 21.011541939148003, lng: 105.5266053683925 };
+        // var listLoaction = []
+        let map;
+        let advancedMarkerElement;
+
+        async function initMap() {
+          console.log("location", mapLocation);
+          // Request needed libraries.
+          //@ts-ignore
+          const { Map } = await google.maps.importLibrary("maps");
+          const { AdvancedMarkerElement } = await google.maps.importLibrary(
+            "marker"
+          );
+          advancedMarkerElement = AdvancedMarkerElement;
+
+          map = new Map(document.getElementById("map"), {
+            zoom: 15,
+            center: mapLocation,
+            mapId: "DEMO_MAP_ID",
+          });
+
+          addMarker({
+            position: mapLocation,
+            icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+          });
+          // Get current user's location
+        }
+
+        async function addMarker(location) {
+          const icon = document.createElement("img");
+
+          icon.src = location.icon;
+          const marker = new advancedMarkerElement({
+            map: map,
+            position: location.position,
+            title: "Your Location",
+          });
+
+          if (location.icon) {
+            marker.content = icon;
+          }
+          // Create and associate info window with marker
+          const infoWindow = new google.maps.InfoWindow({
+            content: `<div><a href='https://www.google.com/maps?q='>Xem bản đồ lớn hơn</a></div>`,
+          });
+
+          // Add click event listener to the marker
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+        }
+      </script>
+      <script></script>
+    </footer>
+  </body>
+</html>
