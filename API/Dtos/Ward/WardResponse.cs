@@ -6,6 +6,7 @@
         public string ward_name { get; set; }
         public string ward_type { get; set; }
         public int district_id { get; set; }
+        public int province_id { get; set; }
         public string? lat { get; set; }
         public string? lng { get; set; }
 

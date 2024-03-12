@@ -6,6 +6,8 @@ namespace API.Dtos.Room
     {
         public int roomID { get; set; }
         public int wardID { get; set; }
+        public int districtID { get; set; }
+        public int provinceID { get; set; }
         public string userID { get; set; }
         [StringLength(100)]
         public string name { get; set; }

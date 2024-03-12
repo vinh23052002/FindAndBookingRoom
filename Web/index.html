@@ -24,7 +24,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -39,10 +39,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#!">Home</a>
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Room Manager</a>
+              <a class="nav-link" href="room-manager.html">Room Manager</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -87,7 +89,8 @@
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-1 justify-content-center">
-          <div class="col mb-5">
+          <!-- Product 1-->
+          <div class="col mb-5" onclick="goDetail(3)">
             <div class="card h-100">
               <div class="row g-0">
                 <!-- Product image-->
@@ -188,9 +191,13 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
+    <script src="js/loadData.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/changeHear.js"></script>
-    <!-- <script src="js/loadData.js"></script> -->
-    <script></script>
+    <script>
+      const goDetail = (id) => {
+        window.location.href = `room-detail.html?id=${id}`;
+      };
+    </script>
   </body>
 </html>

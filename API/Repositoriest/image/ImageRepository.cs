@@ -15,6 +15,7 @@ namespace API.Repositoriest.image
         {
             return await _context.Images
                 .Where(p => p.roomID == roomId)
+                .OrderBy(p => p.order)
                 .ToListAsync();
         }
 

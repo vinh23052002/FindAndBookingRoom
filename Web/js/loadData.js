@@ -23,13 +23,15 @@ function formatMoney(value) {
 }
 
 const loadData = () => {
-  fetch("https://localhost:7140/api/Room")
+  fetch("https://localhost:7140/api/Room/for-user")
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
       let htmlContent = "";
       data.data.forEach((room) => {
-        htmlContent += `<div class="col mb-5">
+        htmlContent += `<div class="col mb-5" onclick="goDetail(${
+          room.roomID
+        })">
           <div class="card h-100">
             <div class="row g-0">
               <!-- Product image-->

@@ -21,6 +21,12 @@ namespace API.Controllers
             var response = await _roomService.GetRooms();
             return Ok(response);
         }
+        [HttpGet("for-user")]
+        public async Task<IActionResult> GetRoomsForUser()
+        {
+            var response = await _roomService.GetRoomsForUser();
+            return Ok(response);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoom(int id)
@@ -37,6 +43,13 @@ namespace API.Controllers
             {
                 return BadRequest(response);
             }
+            return Ok(response);
+        }
+
+        [HttpPut("delete/{id}")]
+        public async Task<IActionResult> ChangeDelete(int id)
+        {
+            var response = await _roomService.ChangeDelete(id);
             return Ok(response);
         }
 

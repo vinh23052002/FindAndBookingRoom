@@ -33,7 +33,37 @@ namespace API.Services.room
 
         public async Task<SuccessResponse> GetRooms()
         {
-            var rooms = await _roomRepository.GetAll();
+            var rooms = await _roomRepository.GetAllForAdmin();
+            // Remove room in rooms that status is false and deleteAt is not null
+            rooms.RemoveAll(p => p.status == false && p.deleteAt != null);
+
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
+                room.province = ward.province;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
+            return new SuccessResponse
+            {
+                Message = "Get rooms successfully",
+                Data = response
+            };
+        }
+        public async Task<SuccessResponse> GetRoomsForUser()
+        {
+            var rooms = await _roomRepository.GetAllForUser();
+            // Remove room in rooms that status is false and deleteAt is not null
+            rooms.RemoveAll(p => p.status == false && p.deleteAt != null);
+
             var response = _mapper.Map<List<RoomResponse>>(rooms);
             foreach (var room in response)
             {
@@ -41,6 +71,8 @@ namespace API.Services.room
                 room.ward = ward.ward_name;
                 room.district = ward.district;
                 room.province = ward.province;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
                 var user = await _userRepository.GetUserById(room.userID);
                 room.actorName = user.fullName;
                 var images = await _imageRepository.GetImageByRoomId(room.roomID);
@@ -66,6 +98,8 @@ namespace API.Services.room
             response.ward = ward.ward_name;
             response.district = ward.district;
             response.province = ward.province;
+            response.districtID = ward.district_id;
+            response.provinceID = ward.province_id;
             var user = await _userRepository.GetUserById(room.userID);
             response.actorName = user.fullName;
             var images = await _imageRepository.GetImageByRoomId(room.roomID);
@@ -163,6 +197,21 @@ namespace API.Services.room
             };
         }
 
+        public async Task<SuccessResponse> ChangeDelete(int id)
+        {
+            var room = await _roomRepository.GetById(id);
+            if (room == null)
+            {
+                throw new MyException((int)HttpStatusCode.NotFound, "Room not found");
+            }
+            await _roomRepository.ChangeDelete(id);
+            return new SuccessResponse
+            {
+                Message = "Change status room successfully",
+                Data = _mapper.Map<RoomResponse>(room)
+            };
+        }
+
         public async Task<SuccessResponse> ChangeStatus(int id)
         {
             var room = await _roomRepository.GetById(id);
@@ -177,5 +226,7 @@ namespace API.Services.room
                 Data = _mapper.Map<RoomResponse>(room)
             };
         }
+
+
     }
 }
