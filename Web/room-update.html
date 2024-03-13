@@ -293,7 +293,7 @@
       });
 
       function loadProvinces() {
-        fetch("https://localhost:7140/api/Province")
+        return fetch("https://localhost:7140/api/Province")
           .then((response) => response.json())
           .then((data) => {
             let selectProvince = document.querySelector(
@@ -309,7 +309,7 @@
       }
 
       function loadDistricts(provinceId) {
-        fetch(`https://localhost:7140/api/District/${provinceId}`)
+        return fetch(`https://localhost:7140/api/District/${provinceId}`)
           .then((response) => response.json())
           .then((data) => {
             let selectDistrict = document.querySelector(
@@ -325,7 +325,7 @@
       }
 
       function loadWards(districtId) {
-        fetch(`https://localhost:7140/api/Ward/district/${districtId}`)
+        return fetch(`https://localhost:7140/api/Ward/district/${districtId}`)
           .then((response) => response.json())
           .then((data) => {
             let selectWard = document.querySelector("select[name='ward']");
@@ -367,19 +367,23 @@
           data.data.description.replace(/<br>/g, "\n");
         document.querySelector("#latitude").value = data.data.latitude;
         document.querySelector("#longitude").value = data.data.longitude;
-        var province = document.querySelector("#province");
-        province.value = data.data.provinceID;
-        province.dispatchEvent(new Event("change"));
-        setTimeout(() => {
-          var district = document.querySelector("#district");
-          district.value = data.data.districtID;
-          district.dispatchEvent(new Event("change"));
-          setTimeout(() => {
-            var ward = document.querySelector("#ward");
-            ward.value = data.data.wardID;
-            ward.dispatchEvent(new Event("change"));
-          }, 100);
-        }, 100);
+
+        loadProvinces()
+          .then(() => {
+            document.querySelector("#province").value = data.data.provinceID;
+          })
+          .then(() => {
+            loadDistricts(data.data.provinceID)
+              .then(() => {
+                document.querySelector("#district").value =
+                  data.data.districtID;
+              })
+              .then(() => {
+                loadWards(data.data.districtID).then(() => {
+                  document.querySelector("#ward").value = data.data.wardID;
+                });
+              });
+          });
       })
       .catch((error) => console.error("Error loading room:", error));
   };
