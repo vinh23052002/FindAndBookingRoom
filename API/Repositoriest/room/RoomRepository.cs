@@ -29,6 +29,10 @@ namespace API.Repositoriest.room
         {
             var room = await _context.Rooms.FindAsync(id);
             room.status = !room.status;
+            if (room.status == true)
+            {
+                room.publicDate = DateTime.Now;
+            }
             _context.Rooms.Update(room);
             await _context.SaveChangesAsync();
         }
@@ -38,6 +42,7 @@ namespace API.Repositoriest.room
         {
             return await _context.Rooms
                 .Where(p => p.status == true && p.deleteAt == null)
+                .OrderByDescending(p => p.publicDate)
                 .ToListAsync();
         }
 
@@ -45,6 +50,14 @@ namespace API.Repositoriest.room
         {
             return await _context.Rooms
                 .Where(p => p.deleteAt == null)
+                .OrderByDescending(p => p.createDate)
+                .ToListAsync();
+        }
+
+        public async Task<List<Room>> GetRoomByUserID(string userID)
+        {
+            return await _context.Rooms
+                .Where(p => p.userID == userID)
                 .ToListAsync();
         }
     }

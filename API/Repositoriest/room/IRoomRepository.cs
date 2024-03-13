@@ -9,5 +9,6 @@ namespace API.Repositoriest.room
         Task<List<Room>> GetAllForUser();
         Task<List<Room>> GetAllForAdmin();
         Task ChangeStatus(int id);
+        Task<List<Room>> GetRoomByUserID(string userID);
     }
 }

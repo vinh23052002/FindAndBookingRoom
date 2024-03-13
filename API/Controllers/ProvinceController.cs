@@ -14,6 +14,7 @@ namespace API.Controllers
         {
             _provinceService = provinceService;
         }
+
         [HttpGet]
         public async Task<ActionResult<List<ProvinceResponse>>> GetProvinces()
         {

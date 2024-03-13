@@ -1,6 +1,5 @@
 using API.Dtos.Room;
 using API.Dtos.User;
-using API.MiddleWares;
 using API.Models;
 using API.Repositoriest.district;
 using API.Repositoriest.image;
@@ -15,6 +14,7 @@ using API.Repositoriest.user;
 using API.Repositoriest.ward;
 using API.Services.district;
 using API.Services.image;
+using API.Services.message;
 using API.Services.province;
 using API.Services.review;
 using API.Services.room;
@@ -55,6 +55,7 @@ namespace API
             builder.Services.AddScoped<IImageService, ImageService>();
 
             builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+            builder.Services.AddScoped<IMessageService, MessageService>();
 
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
@@ -107,16 +108,27 @@ namespace API
                         ValidAudience = builder.Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                     };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Cookies["jwt"];
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
+
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://127.0.0.1:5500")
-                                      .AllowAnyMethod()
-                                      .AllowAnyHeader());
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             });
+
 
             var app = builder.Build();
 
@@ -126,10 +138,10 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseMiddleware<ExceptionMiddleWare>();
+            //app.UseMiddleware<ExceptionMiddleWare>();
 
             app.UseHttpsRedirection();
-            app.UseCors("AllowSpecificOrigin");
+            app.UseCors("AllowAnyOrigin");
             app.UseAuthentication();
             app.UseAuthorization();
 

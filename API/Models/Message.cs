@@ -14,8 +14,7 @@ namespace API.Models
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
         public string content { get; set; }
-        [DataType(DataType.Date)]
-        public string sendDate { get; set; }
+        public DateTime sendDate { get; set; }
 
         [ForeignKey("roomID")]
         public Room Room { get; set; }

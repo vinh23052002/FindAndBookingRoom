@@ -17,7 +17,9 @@ namespace API.Repositoriest.user
 
         public async Task<User> Login(string userID, string password)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.userID.Equals(userID) && x.password.Equals(password));
+            return await _context.Users
+                .Where(room => room.deleteAt == null)
+                .FirstOrDefaultAsync(x => x.userID.Equals(userID) && x.password.Equals(password));
         }
 
         public async Task ChangeStatus(string id)

@@ -12,10 +12,7 @@ namespace API.Dtos.User
         public string? email { get; set; }
         //[RegularExpression(@"^\d{9,10}$", ErrorMessage = "Phone number must be 9 or 10 digits.ZZZZZZZZZZZZZZZZZZ")]
         public string phone { get; set; }
-        public int roleID { get; set; }
         public int wardID { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime? deleteAt { get; set; }
     }
 
     public class UserLoginRequest

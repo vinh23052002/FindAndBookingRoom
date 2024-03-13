@@ -42,7 +42,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="index.html">Vinaz</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -61,34 +61,17 @@
                 >Home</a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Room Manager</a>
+            <li class="nav-item manager">
+              <a class="nav-link" href="room-manager.html">My Room</a>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >Shop</a
-              >
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-              </ul>
+            <li class="nav-item manager">
+              <a class="nav-link" href="message-manager.html"
+                >My Message <span class="text-danger" id="totalMessage"></span
+              ></a>
+            </li>
             </li>
           </ul>
-          <form class="d-flex">
-            <button class="btn btn-outline-dark" type="submit">
-              <i class="bi-cart-fill me-1"></i>
-              Cart
-              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-            </button>
-          </form>
+          
         </div>
       </div>
     </nav>
@@ -104,19 +87,19 @@
                 class="rounded-4"
                 target="_blank"
                 data-type="image"
-                href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
+                href="#"
               >
                 <img
-                  style="max-width: 100%; max-height: 100vh; margin: auto"
+                  style="max-width: 100%; height: 450px; margin: auto"
                   class="big-image rounded-4 fit"
                   id="bigImage"
-                  src="image/rooms/received-788139695001120_1605491651.jpg"
+                  src="#"
                 />
               </a>
             </div>
 
             <div class="d-flex justify-content-center mb-3" id="listImage">
-              <a
+              <!-- <a
                 data-fslightbox="mygalley"
                 class="small-image border mx-1 rounded-2"
                 target="_blank"
@@ -130,89 +113,14 @@
                   class="rounded-2"
                   src="image/rooms/17875bbc8453620d3b42_1600389983.jpg"
                 />
-              </a>
-              <a
-                data-fslightbox="mygalley"
-                class="small-image border mx-1 rounded-2"
-                target="_blank"
-                data-type="image"
-                href="#"
-                class="item-thumb"
-              >
-                <img
-                  width="60"
-                  height="60"
-                  class="rounded-2"
-                  src="image/rooms/nha_1562724901.jpg"
-                />
-              </a>
-              <a
-                data-fslightbox="mygalley"
-                class="small-image border mx-1 rounded-2"
-                target="_blank"
-                data-type="image"
-                href="#"
-                class="item-thumb"
-              >
-                <img
-                  width="60"
-                  height="60"
-                  class="rounded-2"
-                  src="image/rooms/nt001_1562724892.jpg"
-                />
-              </a>
-              <a
-                data-fslightbox="mygalley"
-                class="small-image border mx-1 rounded-2"
-                target="_blank"
-                data-type="image"
-                href="#"
-                class="item-thumb"
-              >
-                <img
-                  width="60"
-                  height="60"
-                  class="rounded-2"
-                  src="image/rooms/17875bbc8453620d3b42_1600389983.jpg"
-                />
-              </a>
-              <a
-                data-fslightbox="mygalley"
-                class="small-image border mx-1 rounded-2"
-                target="_blank"
-                data-type="image"
-                href="#"
-                class="item-thumb"
-              >
-                <img
-                  width="60"
-                  height="60"
-                  class="rounded-2"
-                  src="image/rooms/nha_1562724901.jpg"
-                />
-              </a>
-              <a
-                data-fslightbox="mygalley"
-                class="small-image border mx-1 rounded-2"
-                target="_blank"
-                data-type="image"
-                href="#"
-                class="item-thumb"
-              >
-                <img
-                  width="60"
-                  height="60"
-                  class="rounded-2"
-                  src="image/rooms/nt001_1562724892.jpg"
-                />
-              </a>
+              </a> -->
             </div>
             <!-- thumbs-wrap.// -->
             <!-- gallery-wrap .end// -->
           </aside>
           <main class="col-lg-6">
             <div class="ps-lg-3">
-              <h4 class="title text-dark">
+              <h4 class="title text-dark" id="name">
                 Cho thuê phòng trọ Đại Học Công Nghiệp ở 1 người giá rẻ tại Xuân
                 Phương
               </h4>
@@ -228,24 +136,24 @@
               </div>
 
               <div class="mb-3">
-                <span class="h5" id="price">800.000 </span>
-                <span class="text-muted">đồng/tháng</span>
+                <span class="h5" id="price"></span>
+                <span class="text-muted"></span>
               </div>
 
               <p></p>
 
               <div class="row">
-                <dt class="col-3">Diện tích:</dt>
-                <dd class="col-9" id="area">30 m²</dd>
+                <dt class="col-3">Diện tích</dt>
+                <dd class="col-9" id="area"></dd>
 
                 <dt class="col-3">Tỉnh</dt>
-                <dd class="col-9" id="province">Thành phố Hà Nội</dd>
+                <dd class="col-9" id="province"></dd>
 
                 <dt class="col-3">Huyện</dt>
-                <dd class="col-9" id="district">Quận Ba Đình</dd>
+                <dd class="col-9" id="district"></dd>
 
                 <dt class="col-3">Phường/Quận</dt>
-                <dd class="col-9" id="ward">Phường Phúc Xá</dd>
+                <dd class="col-9" id="ward"></dd>
               </div>
 
               <hr />
@@ -651,16 +559,26 @@
             <div class="modal-body">
               <form id="contactForm">
                 <div class="mb-3">
-                  <label for="phoneNumber" class="col-form-label"
+                  <label for="phoneNumber" class="col-form-label">Tên :</label>
+                  <input type="text" class="form-control" id="popupName" />
+                </div>
+                <div class="mb-3">
+                  <label for="popupPhone" class="col-form-label"
                     >Số điện thoại:</label
                   >
-                  <input type="text" class="form-control" id="phoneNumber" />
+                  <input type="text" class="form-control" id="popupPhone" />
+                </div>
+                <div class="mb-3">
+                  <label for="phoneNumber" class="col-form-label">Email:</label>
+                  <input type="text" class="form-control" id="popupEmail" />
                 </div>
                 <div class="mb-3">
                   <label for="messageText" class="col-form-label"
                     >Tin nhắn:</label
                   >
-                  <textarea class="form-control" id="messageText"></textarea>
+                  <textarea class="form-control" id="popupContent">
+Tôi quan tâm đến phòng trọ của bạn </textarea
+                  >
                 </div>
               </form>
             </div>
@@ -701,7 +619,7 @@
             .then((response) => response.json())
             .then((response) => {
               var data = response.data;
-              console.log("data", data);
+              // console.log("data", data);
               document.getElementById("price").innerText = formatNumber(
                 data.price
               );
@@ -709,6 +627,7 @@
               document.getElementById("province").innerText = data.province;
               document.getElementById("district").innerText = data.district;
               document.getElementById("ward").innerText = data.ward;
+              document.getElementById("name").innerText = data.name;
               document.getElementById("description").innerHTML =
                 data.description;
               document.getElementById(
@@ -752,6 +671,20 @@
             });
           }
         );
+
+        // get data from cookie
+        const getCookie = (name) => {
+          var value = "; " + document.cookie;
+          var parts = value.split("; " + name + "=");
+          if (parts.length == 2) return parts.pop().split(";").shift();
+        };
+        // fill data in to popup
+        var name = getCookie("fullName");
+        var phone = getCookie("phone");
+        var email = getCookie("email");
+        document.getElementById("popupName").value = name;
+        document.getElementById("popupPhone").value = phone;
+        document.getElementById("popupEmail").value = email;
       </script>
 
       <script>
@@ -798,7 +731,6 @@
         let advancedMarkerElement;
 
         async function initMap() {
-          console.log("location", mapLocation);
           // Request needed libraries.
           //@ts-ignore
           const { Map } = await google.maps.importLibrary("maps");
@@ -850,7 +782,6 @@
             .then((response) => response.json())
             .then((response) => {
               var data = response.data;
-              console.log("data", data);
               var amenities = document.getElementById("amenities");
               var html = "";
               if (data.length == 0 || data == null) {
@@ -858,7 +789,6 @@
                 return;
               }
               data.forEach((element) => {
-                console.log("element", element);
                 html += `<tr>
                       <th class="py-2">${
                         element.roomAmenities.amenitiesName
@@ -880,7 +810,6 @@
             .then((response) => response.json())
             .then((response) => {
               var data = response.data;
-              console.log("image", data);
               var image = document.getElementById("listImage");
               var bigImage = document.getElementById("bigImage");
               var html = "";
@@ -944,18 +873,40 @@
         document
           .getElementById("sendContact")
           .addEventListener("click", function () {
-            // Here you can handle the form data, for example sending it to a server
-            // For now, we will just hide the modal
-            var contactModal = bootstrap.Modal.getInstance(
-              document.getElementById("contactModal")
-            );
-            contactModal.hide();
+            var userName = document.getElementById("popupName").value;
+            var phone = document.getElementById("popupPhone").value;
+            var email = document.getElementById("popupEmail").value;
+            var content = document.getElementById("popupContent").value;
+            var roomID = id;
 
-            // Example: log the input values to the console (you would replace this with actual form submission logic)
-            var phoneNumber = document.getElementById("phoneNumber").value;
-            var messageText = document.getElementById("messageText").value;
-            console.log("Phone Number:", phoneNumber);
-            console.log("Message:", messageText);
+            var data = {
+              userName: name,
+              phone: phone,
+              email: email,
+              content: content,
+              roomID: roomID,
+            };
+            console.log("Contract data", data);
+
+            fetch("https://localhost:7140/api/Message", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }).then((object) => {
+              console.log("data from Contract", object);
+              if (object.status == 200) {
+                alert("Gửi yêu cầu thành công");
+                var contactModal = bootstrap.Modal.getInstance(
+                  document.getElementById("contactModal")
+                );
+                contactModal.hide();
+              } else {
+                alert("Gửi yêu cầu thất bại");
+                console.log("error", object.error);
+              }
+            });
           });
 
         // When the user clicks on Close button, close the modal
@@ -966,6 +917,15 @@
               document.getElementById("contactModal")
             );
             contactModal.hide();
+          });
+
+          fetch(`https://localhost:7140/api/Message/total/${getCookie("userID")}`)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Total message: ", data.data);
+            document.getElementById(
+              "totalMessage"
+            ).innerText = `(${data.data})`;
           });
       </script>
     </footer>

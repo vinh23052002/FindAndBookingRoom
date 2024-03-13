@@ -26,7 +26,7 @@ const loadData = () => {
   fetch("https://localhost:7140/api/Room/for-user")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       let htmlContent = "";
       data.data.forEach((room) => {
         htmlContent += `<div class="col mb-5" onclick="goDetail(${
@@ -74,7 +74,7 @@ const loadData = () => {
           room.district
         }, ${room.province}</p>
                     <div>
-                      <p>${limitCharacters(room.description, 300)}</p>
+                      <p>${limitCharacters(room.description, 100)}</p>
                     </div>
                   </div>
                 </div>

@@ -11,7 +11,6 @@ namespace API.Dtos.Message
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
         public string content { get; set; }
-        [DataType(DataType.Date)]
-        public string sendDate { get; set; }
+
     }
 }

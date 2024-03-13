@@ -14,7 +14,15 @@ namespace API.Dtos.User
         public string phone { get; set; }
         public int roleID { get; set; }
         public int wardID { get; set; }
+        public int districtID { get; set; }
+        public int provinceID { get; set; }
         [DataType(DataType.Date)]
         public DateTime? deleteAt { get; set; }
+
+    }
+
+    public class TokenResponse
+    {
+        public string token { get; set; }
     }
 }

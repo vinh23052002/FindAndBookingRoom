@@ -31,7 +31,7 @@ namespace API.Services.room
             _imageRepository = imageRepository;
         }
 
-        public async Task<SuccessResponse> GetRooms()
+        public async Task<SuccessResponse> GetRoomsForAdmin()
         {
             var rooms = await _roomRepository.GetAllForAdmin();
             // Remove room in rooms that status is false and deleteAt is not null
@@ -63,6 +63,33 @@ namespace API.Services.room
             var rooms = await _roomRepository.GetAllForUser();
             // Remove room in rooms that status is false and deleteAt is not null
             rooms.RemoveAll(p => p.status == false && p.deleteAt != null);
+
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.province = ward.province;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
+            return new SuccessResponse
+            {
+                Message = "Get rooms successfully",
+                Data = response
+            };
+        }
+        public async Task<SuccessResponse> GetRoomsByUserID(string userID)
+        {
+            var rooms = await _roomRepository.GetRoomByUserID(userID);
+            // Remove room in rooms that status is false and deleteAt is not null
+            rooms.RemoveAll(p => p.deleteAt != null);
 
             var response = _mapper.Map<List<RoomResponse>>(rooms);
             foreach (var room in response)

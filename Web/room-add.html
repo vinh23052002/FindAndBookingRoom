@@ -231,11 +231,18 @@
               </div> -->
             <div>
               <button
-                class="btn btn--radius-2 btn--red"
+                class="btn btn--radius-2 btn--blue"
                 id="createButton"
                 type="submit"
               >
                 Create
+              </button>
+              <button
+                class="btn btn--radius-2 btn--red"
+                id="backButton"
+                type="submit"
+              >
+                BACK
               </button>
             </div>
             <!-- </form> -->
@@ -250,6 +257,7 @@
     <script src="vendor/select2/select2.min.js"></script>
     <script src="vendor/datepicker/moment.min.js"></script>
     <script src="vendor/datepicker/daterangepicker.js"></script>
+    <script src="js/getUser.js"></script>
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
@@ -336,56 +344,67 @@
         select.innerHTML += `<option disabled="disabled" selected="selected">Choose option</option>`;
       }
     </script>
+    <script type="module">
+      import { loadUser, getUser } from "./js/getUser.js";
+      async () => {
+        await loadUser();
+        const user = getUser();
+        console.log("user", user);
+        document
+          .querySelector("#createButton")
+          .addEventListener("click", function () {
+            // Get the room data from the form
+            let roomName = document.querySelector("#name").value;
+            let roomPrice = document.querySelector("#price").value;
+            let roomArea = document.querySelector("#area").value;
+            let roomPhone = document.querySelector("#phone").value;
+            let roomEmail = document.querySelector("#email").value;
+            let roomDiscription = document
+              .querySelector("#discription")
+              .value.replace(/\n/g, "<br>");
+            let roomProvince = document.querySelector("#province").value;
+            let roomDistrict = document.querySelector("#district").value;
+            let roomWard = document.querySelector("#ward").value;
+            let roomLatitude = document.querySelector("#latitude").value;
+            let roomLongitude = document.querySelector("#longitude").value;
+            // Create the room object
+            let room = {
+              wardID: roomWard,
+              userID: user.userID,
+              name: roomName,
+              price: roomPrice,
+              area: roomArea,
+              description: roomDiscription,
+              phone: roomPhone,
+              email: roomEmail,
+              latitude: roomLatitude,
+              longitude: roomLongitude,
+            };
+            console.log(room);
+            // Call the API to add the room
+            fetch("https://localhost:7140/api/Room", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(room),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Handle the response from the API
+                console.log("room added successfully:", data);
+              })
+              .catch((error) => {
+                console.error("Error adding room:", error);
+              });
+          });
+      };
+    </script>
+    <script>
+      const backButton = document.querySelector("#backButton");
+      backButton.addEventListener("click", function () {
+        window.location.href = "room-manager.html";
+      });
+    </script>
   </body>
 </html>
-
-<script>
-  document
-    .querySelector("#createButton")
-    .addEventListener("click", function () {
-      // Get the room data from the form
-      let roomName = document.querySelector("#name").value;
-      let roomPrice = document.querySelector("#price").value;
-      let roomArea = document.querySelector("#area").value;
-      let roomPhone = document.querySelector("#phone").value;
-      let roomEmail = document.querySelector("#email").value;
-      let roomDiscription = document
-        .querySelector("#discription")
-        .value.replace(/\n/g, "<br>");
-      let roomProvince = document.querySelector("#province").value;
-      let roomDistrict = document.querySelector("#district").value;
-      let roomWard = document.querySelector("#ward").value;
-      let roomLatitude = document.querySelector("#latitude").value;
-      let roomLongitude = document.querySelector("#longitude").value;
-      // Create the room object
-      let room = {
-        wardID: roomWard,
-        userID: "Admin",
-        name: roomName,
-        price: roomPrice,
-        area: roomArea,
-        description: roomDiscription,
-        phone: roomPhone,
-        email: roomEmail,
-        latitude: roomLatitude,
-        longitude: roomLongitude,
-      };
-      console.log(room);
-      // Call the API to add the room
-      fetch("https://localhost:7140/api/Room", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(room),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the response from the API
-          console.log("room added successfully:", data);
-        })
-        .catch((error) => {
-          console.error("Error adding room:", error);
-        });
-    });
-</script>

@@ -9,8 +9,9 @@ namespace API.Services.room
         Task<SuccessResponse> ChangeDelete(int id);
         Task<SuccessResponse> CreateRoom(RoomAddRequest request);
         Task<SuccessResponse> GetRoom(int id);
-        Task<SuccessResponse> GetRooms();
+        Task<SuccessResponse> GetRoomsForAdmin();
         Task<SuccessResponse> UpdateRoom(RoomUpdateRequest request);
         Task<SuccessResponse> GetRoomsForUser();
+        Task<SuccessResponse> GetRoomsByUserID(string userID);
     }
 }

@@ -207,7 +207,7 @@
                 <h2>Room <b>Management</b></h2>
               </div>
               <div class="col-sm-7">
-                <a href="#" class="btn btn-secondary"
+                <a href="room-add.html" class="btn btn-secondary"
                   ><i class="material-icons">&#xE147;</i>
                   <span>Add New Room</span></a
                 >
@@ -302,9 +302,47 @@
       </div>
     </div>
   </body>
+  <script type="module" src="js/getUser.js"></script>
+  <script type="module">
+    import { loadUser, getUser } from "./js/getUser.js";
+    document.addEventListener("DOMContentLoaded", async function () {
+      await loadUser();
+      user = getUser();
+      console.log(user);
+      if (user.role == 1) {
+        await loadData();
+      }
+      await loadData(user.userID);
+    });
+  </script>
   <script>
-    const loadData = () => {
-      fetch("https://localhost:7140/api/Room")
+    var user;
+    function getCookie(name) {
+      const cookieValue = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(name))
+        ?.split("=")[1];
+      return cookieValue ? decodeURIComponent(cookieValue) : null;
+    }
+
+    function formatNumber(num) {
+      return num.toLocaleString("vi-VN");
+    }
+  </script>
+  <script>
+    const loadData = async (userID) => {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + getCookie("token"),
+        },
+      };
+      var url;
+      if (userID) {
+        url = `https://localhost:7140/api/Room/by-user/${userID}`;
+      } else {
+        url = `https://localhost:7140/api/Room`;
+      }
+      fetch(url, config)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -316,7 +354,7 @@
                 <td>${room.roomID}</td>
                 <td>${room.name}</td>
                 <td>${room.actorName}</td>
-                <td>${room.price}</td>
+                <td>${formatNumber(room.price)}</td>
                 <td>${room.area}</td>
                 <td>${room.wardID}</td>
                 <td><a onclick="changeStatus(${
@@ -326,7 +364,7 @@
             }">&bull;</span> ${room.status ? "Publich" : "Unpublich"}</td>
                 </a><td>
                   <a
-                    href="#"
+                    href="room-update.html?id=${room.roomID}"
                     class="settings"
                     title="Settings"
                     data-toggle="tooltip"
@@ -363,21 +401,22 @@
           tbody.innerHTML = html;
         });
     };
-    loadData();
   </script>
+
   <script>
     const changeStatus = (id) => {
-      console.log("changeStatus", id);
+      console.log("User in changStatus", user);
       fetch(`https://localhost:7140/api/Room/change-status/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + getCookie("token"),
         },
       })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          loadData();
+          loadData(user.userID);
         });
     };
   </script>
@@ -387,6 +426,10 @@
       if (confirm("Are you sure?") == false) return;
       fetch(`https://localhost:7140/api/Room/delete/${id}`, {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getCookie("token"),
+        },
       })
         .then((response) => response.json())
         .then((data) => {

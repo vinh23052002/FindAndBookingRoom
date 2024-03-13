@@ -1,11 +1,13 @@
 ﻿using API.Dtos.Room;
 using API.Services.room;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -16,12 +18,14 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> GetRooms()
         {
-            var response = await _roomService.GetRooms();
+            var response = await _roomService.GetRoomsForAdmin();
             return Ok(response);
         }
         [HttpGet("for-user")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetRoomsForUser()
         {
             var response = await _roomService.GetRoomsForUser();
@@ -29,9 +33,17 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetRoom(int id)
         {
             var response = await _roomService.GetRoom(id);
+            return Ok(response);
+        }
+
+        [HttpGet("by-user/{userID}")]
+        public async Task<IActionResult> GetRoomsByUserID(string userID)
+        {
+            var response = await _roomService.GetRoomsByUserID(userID);
             return Ok(response);
         }
 

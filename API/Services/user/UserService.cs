@@ -62,17 +62,15 @@ namespace API.Services.user
             var user = await _userRepository.Login(request.userID, request.password);
             if (user == null || user.deleteAt < DateTime.Now)
             {
-                throw new MyException((int)HttpStatusCode.NotFound, "User not found");
+                throw new MyException((int)HttpStatusCode.NotFound, "UserName or Password wrong!!!");
             }
 
             var tokenString = GenerateJSONWebToken(user);
+
             return new SuccessResponse
             {
                 Message = "Login success",
-                Data = new
-                {
-                    token = tokenString,
-                }
+                Data = tokenString
             };
         }
 
@@ -119,12 +117,7 @@ namespace API.Services.user
                 throw new MyException((int)HttpStatusCode.NotFound, "Ward not found");
             }
             var user = _mapper.Map<User>(request);
-            var role = await _roleRepository.GetById(request.roleID);
-            if (role == null)
-            {
-                throw new MyException((int)HttpStatusCode.NotFound, "Role not found");
-            }
-            user.Role = role;
+            user.roleID = 1;
             await _userRepository.Add(user);
             return new SuccessResponse
             {
@@ -139,9 +132,13 @@ namespace API.Services.user
             {
                 throw new MyException((int)HttpStatusCode.NotFound, "User not found");
             }
+            var ward = await _wardRepository.GetWard(user.wardID);
+            var response = _mapper.Map<UserResponse>(user);
+            response.districtID = ward.district_id;
+            response.provinceID = ward.province_id;
             return new SuccessResponse
             {
-                Data = _mapper.Map<UserResponse>(user)
+                Data = response
             };
         }
 
@@ -182,10 +179,7 @@ namespace API.Services.user
             {
                 throw new MyException((int)HttpStatusCode.NotFound, "Phone already exists");
             }
-            if (await _roleRepository.GetById(request.roleID) == null)
-            {
-                throw new MyException((int)HttpStatusCode.NotFound, "Role not found");
-            }
+
             if (await _wardRepository.GetWard(request.wardID) == null)
             {
                 throw new MyException((int)HttpStatusCode.NotFound, "Ward not found");
@@ -243,6 +237,7 @@ namespace API.Services.user
             await _userRepository.Update(user);
             return new SuccessResponse
             {
+                Message = "Update user success",
                 Data = _mapper.Map<UserResponse>(user)
             };
         }
@@ -264,9 +259,17 @@ namespace API.Services.user
         public async Task<SuccessResponse> GetUsers()
         {
             var users = await _userRepository.GetAll();
+            users.RemoveAll(p => p.deleteAt != null);
+            var response = _mapper.Map<List<UserResponse>>(users);
+            response.ForEach(user =>
+            {
+                var ward = _wardRepository.GetWard(user.wardID).Result;
+                user.districtID = ward.district_id;
+                user.provinceID = ward.province_id;
+            });
             return new SuccessResponse
             {
-                Data = _mapper.Map<List<UserResponse>>(users)
+                Data = response
             };
         }
 
