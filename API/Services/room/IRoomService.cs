@@ -13,5 +13,9 @@ namespace API.Services.room
         Task<SuccessResponse> UpdateRoom(RoomUpdateRequest request);
         Task<SuccessResponse> GetRoomsForUser();
         Task<SuccessResponse> GetRoomsByUserID(string userID);
+        Task<SuccessResponse> SearchRoomByProvinceID(int provinceID, string txtSearch);
+        Task<SuccessResponse> SearchRoomByWardID(int wardID, string txtSearch);
+        Task<SuccessResponse> SearchRoomByDistrict(int districtID, string txtSearch);
+        Task<SuccessResponse> SearchRoomByTxt(string txtSearch);
     }
 }

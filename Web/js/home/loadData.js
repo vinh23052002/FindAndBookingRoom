@@ -22,11 +22,11 @@ function formatMoney(value) {
   }
 }
 
-const loadData = () => {
-  fetch("https://localhost:7140/api/Room/for-user")
+export const loadData = (url) => {
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       let htmlContent = "";
       data.data.forEach((room) => {
         htmlContent += `<div class="col mb-5" onclick="goDetail(${
@@ -95,4 +95,4 @@ const loadData = () => {
       console.error("Error fetching data: ", error);
     });
 };
-loadData();
+loadData("https://localhost:7140/api/Room/search-by-txt?txtSearch=");

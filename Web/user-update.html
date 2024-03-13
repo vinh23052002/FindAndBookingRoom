@@ -291,13 +291,26 @@
 </html>
 
 <script>
+  function getCookie(name) {
+    const cookieValue = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(name))
+      ?.split("=")[1];
+    return cookieValue ? decodeURIComponent(cookieValue) : null;
+  }
   //get id from url
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   console.log("id", id);
 
   const loadData = () => {
-    fetch(`https://localhost:7140/api/User/${id}`)
+    fetch(`https://localhost:7140/api/User/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
@@ -352,6 +365,7 @@
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
       },
       body: JSON.stringify(user),
     })

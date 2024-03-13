@@ -7,7 +7,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -44,6 +44,42 @@ namespace API.Controllers
         public async Task<IActionResult> GetRoomsByUserID(string userID)
         {
             var response = await _roomService.GetRoomsByUserID(userID);
+            return Ok(response);
+        }
+
+        [HttpGet("search-by-province")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByProvince(int provinceID, string? txtSearch = "")
+        {
+            txtSearch = txtSearch ?? "";
+            var response = await _roomService.SearchRoomByProvinceID(provinceID, txtSearch);
+            return Ok(response);
+        }
+
+        [HttpGet("search-by-district")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByDistrict(int districtID, string? txtSearch = "")
+        {
+            txtSearch = txtSearch ?? "";
+            var response = await _roomService.SearchRoomByDistrict(districtID, txtSearch);
+            return Ok(response);
+        }
+
+        [HttpGet("search-by-ward")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByWard(int wardID, string? txtSearch = "")
+        {
+            txtSearch = txtSearch ?? "";
+            var response = await _roomService.SearchRoomByWardID(wardID, txtSearch);
+            return Ok(response);
+        }
+
+        [HttpGet("search-by-txt")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByTxt(string? txtSearch = "")
+        {
+            txtSearch = txtSearch ?? "";
+            var response = await _roomService.SearchRoomByTxt(txtSearch);
             return Ok(response);
         }
 

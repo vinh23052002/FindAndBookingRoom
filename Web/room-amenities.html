@@ -291,12 +291,25 @@
     </div>
   </body>
   <script>
+    function getCookie(name) {
+      const cookieValue = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(name))
+        ?.split("=")[1];
+      return cookieValue ? decodeURIComponent(cookieValue) : null;
+    }
     // get roomId from url
     const urlParams = new URLSearchParams(window.location.search);
     const roomID = urlParams.get("id");
 
     // get amenities
-    fetch("https://localhost:7140/api/RoomAmenities")
+    fetch("https://localhost:7140/api/RoomAmenities", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -309,8 +322,13 @@
 
   <script>
     const loadData = () => {
-      console.log("https://localhost:7140/api/RoomAmenitiesMapping/" + roomID);
-      fetch("https://localhost:7140/api/RoomAmenitiesMapping/" + roomID)
+      fetch(`https://localhost:7140/api/RoomAmenitiesMapping/${roomID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getCookie("token"),
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -361,6 +379,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + getCookie("token"),
         },
         body: JSON.stringify(requestData),
       })
@@ -387,6 +406,7 @@
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + getCookie("token"),
         },
         body: JSON.stringify(requestData),
       })

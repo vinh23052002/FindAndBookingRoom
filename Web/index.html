@@ -43,23 +43,24 @@
                 >Home</a
               >
             </li>
-            <li class="nav-item manager">
+            <li class="nav-item">
               <a class="nav-link" href="room-manager.html">My Room</a>
             </li>
-            <li class="nav-item manager">
+            <li class="nav-item">
               <a class="nav-link" href="message-manager.html"
                 >My Message <span class="text-danger" id="totalMessage"></span
               ></a>
             </li>
-            <li class="nav-item manager">
-              <a class="nav-link" href="user-manager.html"
-                >User Manger <span class="text-danger" id="totalMessage"></span
-              ></a>
-            </li>
-            <li class="nav-item manager">
+
+            <li class="nav-item">
               <a class="nav-link" href="update-profile.html"
                 >Update Proflie
                 <span class="text-danger" id="totalMessage"></span
+              ></a>
+            </li>
+            <li class="nav-item admin">
+              <a class="nav-link" href="user-manager.html"
+                >User Manger <span class="text-danger" id="totalMessage"></span
               ></a>
             </li>
             <!-- <li class="nav-item dropdown">
@@ -97,8 +98,39 @@
       </div>
     </header>
     <!-- Section-->
+
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
+        <div class="d-flex mb-5">
+          <select name="province" id="province">
+            <option disabled="disabled" selected="selected">
+              Choose Province
+            </option>
+          </select>
+
+          <select name="district" id="district" class="ms-5">
+            <option disabled="disabled" selected="selected">
+              Choose District
+            </option>
+          </select>
+
+          <select name="ward" id="ward" class="ms-5">
+            <option disabled="disabled" selected="selected">Choose Ward</option>
+          </select>
+
+          <input
+            type="text"
+            class="form-control ms-5"
+            id="search"
+            placeholder="Search"
+          />
+
+          <button class="btn btn-primary ms-5" id="search" onclick="search()">
+            Search
+          </button>
+
+          <buton class="btn btn-danger ms-3" id="clear"> Clear </buton>
+        </div>
         <div class="row gx-4 gx-lg-5 row-cols-1 justify-content-center">
           <!-- Product 1-->
           <!-- <div class="col mb-5" onclick="goDetail(3)">
@@ -198,8 +230,108 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/home/loadData.js"></script>
-    <script src="js/home/changeHear.js"></script>
+    <!-- <script type="module" src="js/home/loadData.js"></script> -->
+
+    <script>
+      function limitCharacters(text, maxLength) {
+        if (text.length <= maxLength) {
+          return text; // Trả về chuỗi nguyên vẹn nếu không vượt quá giới hạn
+        } else {
+          return text.substring(0, maxLength) + "..."; // Cắt chuỗi và thêm dấu ba chấm ở cuối
+        }
+      }
+
+      function formatMoney(value) {
+        if (value < 1000000) {
+          // Nếu giá trị nhỏ hơn 1 triệu, chuyển đổi sang định dạng dưới 1 triệu
+          return `${(value / 1000)
+            .toFixed(0)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")} nghìn đồng/tháng`;
+        } else {
+          // Nếu giá trị lớn hơn hoặc bằng 1 triệu, chuyển đổi sang định dạng trên 1 triệu
+          if (value % 1000000 === 0) {
+            return `${Math.floor(value / 1000000)} triệu đồng/tháng`;
+          } else {
+            return `${(value / 1000000).toFixed(1)} triệu đồng/tháng`;
+          }
+        }
+      }
+
+      const loadData = (url) => {
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            let htmlContent = "";
+            data.data.forEach((room) => {
+              htmlContent += `<div class="col mb-5" onclick="goDetail(${
+                room.roomID
+              })">
+          <div class="card h-100">
+            <div class="row g-0">
+              <!-- Product image-->
+              <div class="col-md-4 position-relative" style="height: 350px">
+                <img
+                  class="card-img-top"
+                  src="image/rooms/${
+                    room.images[0] ||
+                    "https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                  }"
+                  alt="..."
+                  height="100%"
+                />
+                <div class="position-absolute bottom-0 start-0 bg-white text-dark p-2 m-2">
+                  ${room.images.length} ảnh 
+                </div>
+                <span class="position-absolute bottom-0 end-0 text-danger m-2 heart-icon" style="font-size: 2rem; right: 0; bottom: 0;" onclick="toggleHeart(this)" onhol>
+                  <img src="image/icon/unLike.png" alt="heart" style="width: 30px; height: 30px;" class="">
+                </span>
+              </div>
+              <!-- Product details-->
+              <div class="col-md-8 d-flex flex-column" style="height: 100%;">
+                <div class="card-body ps-4 d-flex flex-column">
+                  <div>
+                    <!-- Product name-->
+                    <h5 class="fw-bolder text-primary">${room.name}</h5><br/>
+                    <!-- Product price-->
+                    <div class="d-flex align-items-center">
+                      <p class="me-5 text-success fs-4 fw-bolder">${formatMoney(
+                        room.price
+                      )}</p>
+                      <p class="me-3 ms-5 fs-5 fw-bolder text-">Diện tích:<span class="">${
+                        room.area
+                      } m²</span></p>
+                      <p class="ms-auto">${new Date(
+                        room.publicDate
+                      ).toLocaleDateString()}</p>
+                    </div>
+                    <p class="fs-5 fw-bolder" >${room.ward}, ${
+                room.district
+              }, ${room.province}</p>
+                    <div>
+                      <p>${limitCharacters(room.description, 100)}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="actor mt-auto ms-4 mb-2"> 
+                  <div class="actor d-flex align-items-center ">
+                      <img src="image/icon/avatar.png" class="rounded-circle me-3" alt="actor name" style="width: 50px; height: 50px;">
+                      <h5 class="mb-0">${room.actorName || "Actor Name"}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+            });
+            document.querySelector(".row").innerHTML = htmlContent;
+          })
+          .catch((error) => {
+            console.error("Error fetching data: ", error);
+          });
+      };
+      loadData("https://localhost:7140/api/Room/search-by-txt?txtSearch=");
+    </script>
     <script src="js/home/logout.js"></script>
     <script type="module" src="js/getUser.js"></script>
     <script>
@@ -212,12 +344,10 @@
       (async () => {
         await loadUser();
         const user = getUser();
+        if (user.roleID != "1") {
+          document.querySelector(".admin").style.display = "none";
+        }
         console.log(user);
-        document.getElementById("name").innerText = `Hello ${user.fullName}`;
-        document.cookie = `fullName=${user.fullName}`;
-        document.cookie = `phone=${user.phone}`;
-        document.cookie = `email=${user.email}`;
-        document.cookie = `userID=${user.userID}`;
 
         fetch(`https://localhost:7140/api/Message/total/${user.userID}`)
           .then((res) => res.json())
@@ -227,7 +357,136 @@
               "totalMessage"
             ).innerText = `(${data.data})`;
           });
+        document.getElementById("name").innerText = `Hello ${user.fullName}`;
+        document.cookie = `fullName=${user.fullName}`;
+        document.cookie = `phone=${user.phone}`;
+        document.cookie = `email=${user.email}`;
+        document.cookie = `userID=${user.userID}`;
       })();
     </script>
+    <script>
+      function getCookie(name) {
+        const cookieValue = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith(name))
+          ?.split("=")[1];
+        return cookieValue ? decodeURIComponent(cookieValue) : null;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load tỉnh/thành phố khi trang được tải
+        loadProvinces();
+
+        // Lắng nghe sự kiện khi chọn tỉnh/thành phố
+        document
+          .querySelector("select[name='province']")
+          .addEventListener("change", function () {
+            let provinceId = this.value;
+            if (provinceId) {
+              loadDistricts(provinceId);
+            } else {
+              clearOptions("district");
+              clearOptions("ward");
+            }
+          });
+
+        // Lắng nghe sự kiện khi chọn quận/huyện
+        document
+          .querySelector("select[name='district']")
+          .addEventListener("change", function () {
+            let districtId = this.value;
+            if (districtId) {
+              loadWards(districtId);
+            } else {
+              clearOptions("ward");
+            }
+          });
+      });
+
+      function loadProvinces() {
+        fetch("https://localhost:7140/api/Province")
+          .then((response) => response.json())
+          .then((data) => {
+            let selectProvince = document.querySelector(
+              "select[name='province']"
+            );
+            selectProvince.innerHTML = "";
+            selectProvince.innerHTML += `<option disabled="disabled" selected="selected">Choose Province</option>`;
+            data.data.forEach((province) => {
+              selectProvince.innerHTML += `<option value="${province.province_id}">${province.province_name}</option>`;
+            });
+          })
+          .catch((error) => console.error("Error loading provinces:", error));
+      }
+
+      function loadDistricts(provinceId) {
+        fetch(`https://localhost:7140/api/District/${provinceId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            let selectDistrict = document.querySelector(
+              "select[name='district']"
+            );
+            selectDistrict.innerHTML = "";
+            selectDistrict.innerHTML += `<option disabled="disabled" selected="selected">Choose District</option>`;
+            data.data.forEach((district) => {
+              selectDistrict.innerHTML += `<option value="${district.district_id}">${district.district_name}</option>`;
+            });
+          })
+          .catch((error) => console.error("Error loading districts:", error));
+      }
+
+      function loadWards(districtId) {
+        fetch(`https://localhost:7140/api/Ward/district/${districtId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            let selectWard = document.querySelector("select[name='ward']");
+            selectWard.innerHTML = "";
+            selectWard.innerHTML += `<option disabled="disabled" selected="selected">Choose Ward</option>`;
+            data.data.forEach((ward) => {
+              selectWard.innerHTML += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
+            });
+          })
+          .catch((error) => console.error("Error loading wards:", error));
+      }
+
+      function clearOptions(selectName) {
+        let select = document.querySelector(`select[name='${selectName}']`);
+        select.innerHTML = "";
+        select.innerHTML += `<option disabled="disabled" selected="selected">Choose option</option>`;
+      }
+    </script>
+    <script>
+      const search = () => {
+        var txtSearch = document.getElementById("search").value;
+        var ward = document.getElementById("ward");
+        var district = document.getElementById("district");
+        var province = document.getElementById("province");
+
+        var url;
+        if (ward.selectedIndex != 0) {
+          url = `https://localhost:7140/api/Room/search-by-ward?wardID=${ward.value}&txtSearch=${txtSearch}`;
+        } else if (district.selectedIndex != 0) {
+          url = `https://localhost:7140/api/Room/search-by-district?districtID=${district.value}&txtSearch=${txtSearch}`;
+        } else if (province.selectedIndex != 0) {
+          url = `https://localhost:7140/api/Room/search-by-province?provinceID=${province.value}&txtSearch=${txtSearch}`;
+        } else {
+          url = `https://localhost:7140/api/Room/search-by-txt?txtSearch=${txtSearch}`;
+        }
+        console.log("url", url);
+
+        loadData(url);
+      };
+    </script>
+    <script>
+      document.getElementById("clear").addEventListener("click", clear);
+      function clear() {
+        document.getElementById("search").value = "";
+        document.getElementById("ward").selectedIndex = 0;
+        document.getElementById("district").selectedIndex = 0;
+        document.getElementById("province").selectedIndex = 0;
+        loadData("https://localhost:7140/api/Room/search-by-txt?txtSearch=");
+      }
+    </script>
+    <!-- <script src="js/home/changeHear.js"></script> -->
   </body>
 </html>

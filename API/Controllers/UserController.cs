@@ -7,7 +7,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "1")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> GetUsers()
         {
             var response = await _userService.GetUsers();
@@ -66,8 +66,8 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
         [HttpPut("change-status")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> ChangeStatus(string id)
         {
             var response = await _userService.ChangeStatus(id);
@@ -77,6 +77,7 @@ namespace API.Controllers
 
 
         [HttpPut("update-user")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> UpdateUser(UserRequest request)
         {
             var response = await _userService.UpdateUser(request);

@@ -254,6 +254,113 @@ namespace API.Services.room
             };
         }
 
+        public async Task<SuccessResponse> SearchRoomByProvinceID(int provinceID, string txtSearch)
+        {
+            var rooms = await _roomRepository.SearchRoomByProvinceID(provinceID, txtSearch);
+            rooms.RemoveAll(p => p.status == false || p.deleteAt != null);
+
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.province = ward.province;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
+            return new SuccessResponse
+            {
+                Message = "Search room by provinceID successfully",
+                Data = response
+            };
+        }
+
+        public async Task<SuccessResponse> SearchRoomByDistrict(int districtID, string txtSearch)
+        {
+            var rooms = await _roomRepository.SearchRoomByDistrictID(districtID, txtSearch);
+            rooms.RemoveAll(p => p.status == false || p.deleteAt != null);
+
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.province = ward.province;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
+            return new SuccessResponse
+            {
+                Message = "Search room by districtID successfully",
+                Data = response
+            };
+        }
+
+        public async Task<SuccessResponse> SearchRoomByWardID(int wardID, string txtSearch)
+        {
+            var rooms = await _roomRepository.SearchRoomByWardID(wardID, txtSearch);
+            rooms.RemoveAll(p => p.status == false || p.deleteAt != null);
+
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.province = ward.province;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
+            return new SuccessResponse
+            {
+                Message = "Search room by wardID successfully",
+                Data = response
+            };
+        }
+
+        public async Task<SuccessResponse> SearchRoomByTxt(string txtSearch)
+        {
+            var rooms = await _roomRepository.SearchRoomByTxt(txtSearch);
+            rooms.RemoveAll(p => p.status == false || p.deleteAt != null);
+
+            var response = _mapper.Map<List<RoomResponse>>(rooms);
+            foreach (var room in response)
+            {
+                var ward = await _wardRepository.GetWard(room.wardID);
+                room.ward = ward.ward_name;
+                room.district = ward.district;
+                room.province = ward.province;
+                room.districtID = ward.district_id;
+                room.provinceID = ward.province_id;
+                var user = await _userRepository.GetUserById(room.userID);
+                room.actorName = user.fullName;
+                var images = await _imageRepository.GetImageByRoomId(room.roomID);
+                room.images = images.Select(p => p.url).ToList();
+
+            }
+            return new SuccessResponse
+            {
+                Message = "Search room by txt successfully",
+                Data = response
+            };
+        }
 
     }
 }

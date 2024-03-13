@@ -62,6 +62,39 @@ namespace API.Repositoriest.room
                 .Where(p => p.userID == userID)
                 .ToListAsync();
         }
+
+        public async Task<List<Room>> SearchRoomByProvinceID(int provinceID, string txtSearch)
+        {
+            return await _context.Rooms
+                .Include(p => p.Ward)
+                .ThenInclude(p => p.District)
+                .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()) && p.Ward.District.province_id == provinceID)
+                .ToListAsync();
+        }
+
+        public async Task<List<Room>> SearchRoomByDistrictID(int districtID, string txtSearch)
+        {
+            return await _context.Rooms
+                .Include(p => p.Ward)
+                .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()) && p.Ward.district_id == districtID)
+                .ToListAsync();
+        }
+
+        public async Task<List<Room>> SearchRoomByWardID(int wardID, string txtSearch)
+        {
+            return await _context.Rooms
+                .Include(p => p.Ward)
+                .ThenInclude(p => p.District)
+                .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()) && p.wardID == wardID)
+                .ToListAsync();
+        }
+
+        public async Task<List<Room>> SearchRoomByTxt(string txtSearch)
+        {
+            return await _context.Rooms
+                .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()))
+                .ToListAsync();
+        }
     }
 
 }
