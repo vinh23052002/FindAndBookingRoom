@@ -43,6 +43,7 @@ namespace API.Repositoriest.room
             return await _context.Rooms
                 .Where(p => p.status == true && p.deleteAt == null)
                 .OrderByDescending(p => p.publicDate)
+                .OrderByDescending(p => p.status)
                 .ToListAsync();
         }
 
@@ -51,6 +52,7 @@ namespace API.Repositoriest.room
             return await _context.Rooms
                 .Where(p => p.deleteAt == null)
                 .OrderByDescending(p => p.createDate)
+                .OrderByDescending(p => p.status)
                 .ToListAsync();
         }
 

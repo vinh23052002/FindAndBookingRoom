@@ -317,8 +317,8 @@
             var ward = document.querySelector("#ward");
             ward.value = data.data.wardID;
             ward.dispatchEvent(new Event("change"));
-          }, 100);
-        }, 100);
+          }, 300);
+        }, 300);
       })
       .catch((error) => console.error("Error loading room:", error));
   };
@@ -380,6 +380,6 @@
 <script>
   const backButton = document.querySelector("#backButton");
   backButton.addEventListener("click", function () {
-    window.location.href = "room-manager.html";
+    window.location.href = "user-manager.html";
   });
 </script>

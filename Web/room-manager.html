@@ -309,10 +309,11 @@
       await loadUser();
       user = getUser();
       console.log(user);
-      if (user.role == 1) {
+      if (user.roleID == 1) {
         await loadData();
+      } else {
+        await loadData(user.userID);
       }
-      await loadData(user.userID);
     });
   </script>
   <script>
@@ -404,7 +405,7 @@
   </script>
 
   <script>
-    const changeStatus = (id) => {
+    const changeStatus = async (id) => {
       console.log("User in changStatus", user);
       fetch(`https://localhost:7140/api/Room/change-status/${id}`, {
         method: "PUT",
@@ -416,7 +417,11 @@
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          loadData(user.userID);
+          if (user.roleID == 1) {
+            loadData();
+          } else {
+            loadData(user.userID);
+          }
         });
     };
   </script>
@@ -434,7 +439,11 @@
         .then((response) => response.json())
         .then((data) => {
           alert("Delete success");
-          loadData();
+          if (user.roleID == 1) {
+            loadData();
+          } else {
+            loadData(user.userID);
+          }
         });
     };
   </script>
