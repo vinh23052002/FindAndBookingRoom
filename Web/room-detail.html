@@ -61,17 +61,27 @@
                 >Home</a
               >
             </li>
-            <li class="nav-item manager">
+            <li class="nav-item">
               <a class="nav-link" href="room-manager.html">My Room</a>
             </li>
-            <li class="nav-item manager">
+            <li class="nav-item">
               <a class="nav-link" href="message-manager.html"
                 >My Message <span class="text-danger" id="totalMessage"></span
               ></a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="update-profile.html"
+                >Update Proflie
+                <span class="text-danger" id="totalMessage"></span
+              ></a>
+            </li>
+            <li class="nav-item admin">
+              <a class="nav-link" href="user-manager.html"
+                >User Manger <span class="text-danger" id="totalMessage"></span
+              ></a>
             </li>
           </ul>
-          
         </div>
       </div>
     </nav>
@@ -619,6 +629,9 @@ Tôi quan tâm đến phòng trọ của bạn </textarea
             .then((response) => response.json())
             .then((response) => {
               var data = response.data;
+              if (data.roleID != "1") {
+                document.querySelector(".admin").style.display = "none";
+              }
               // console.log("data", data);
               document.getElementById("price").innerText = formatNumber(
                 data.price
@@ -919,7 +932,7 @@ Tôi quan tâm đến phòng trọ của bạn </textarea
             contactModal.hide();
           });
 
-          fetch(`https://localhost:7140/api/Message/total/${getCookie("userID")}`)
+        fetch(`https://localhost:7140/api/Message/total/${getCookie("userID")}`)
           .then((res) => res.json())
           .then((data) => {
             console.log("Total message: ", data.data);

@@ -16,6 +16,7 @@ namespace API.Repositoriest.message
             return await _context.Messages
                 .Include(p => p.Room)
                 .Where(p => p.Room.userID.Equals(userID))
+                .OrderByDescending(p => p.sendDate)
                 .ToListAsync();
 
         }
