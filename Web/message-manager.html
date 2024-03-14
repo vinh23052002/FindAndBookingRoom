@@ -223,6 +223,7 @@
                 <th>Email</th>
                 <th>Content</th>
                 <th>Send Date</th>
+                <th>isRead</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -292,6 +293,11 @@
                 <td>${room.email}</td>
                 <td>${room.content}</td>
                 <td>${room.sendDate}</td>
+                <td><a onclick="changeRead(${
+                  room.messageID
+                })"><span class="status ${
+              room.isRead ? "text-success" : "text-danger"
+            }">&bull;</span> ${room.isRead ? "True" : "False"}</td>
                 <td>
                   <a
                     href="#"
@@ -340,6 +346,22 @@
         .then((response) => response.json())
         .then((data) => {
           alert("Delete success");
+          loadData(getCookie("userID"));
+        });
+    };
+  </script>
+  <script>
+    const changeRead = async (id) => {
+      console.log("User in changStatus", user);
+      fetch(`https://localhost:7140/api/Message/change-status/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
           loadData(getCookie("userID"));
         });
     };

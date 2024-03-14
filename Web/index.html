@@ -301,6 +301,9 @@
                       <p class="me-3 ms-5 fs-5 fw-bolder text-">Diện tích:<span class="">${
                         room.area
                       } m²</span></p>
+                      <p class="me-3 ms-5 fs-5 fw-bolder text-">View:<span class="">${
+                        room.totalView
+                      } </span></p>
                       <p class="ms-auto">${new Date(
                         room.publicDate
                       ).toLocaleDateString()}</p>
@@ -487,6 +490,7 @@
         loadData("https://localhost:7140/api/Room/search-by-txt?txtSearch=");
       }
     </script>
+
     <!-- <script src="js/home/changeHear.js"></script> -->
   </body>
 </html>

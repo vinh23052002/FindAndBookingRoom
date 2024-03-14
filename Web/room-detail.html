@@ -941,6 +941,21 @@ Tôi quan tâm đến phòng trọ của bạn </textarea
             ).innerText = `(${data.data})`;
           });
       </script>
+      <script>
+        var data = {
+          roomID: id,
+          userID: getCookie("userID"),
+        };
+        fetch("https://localhost:7140/api/Review", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then((object) => {
+          console.log(object);
+        });
+      </script>
     </footer>
   </body>
 </html>

@@ -257,7 +257,15 @@
             console.log(result);
             if (result.data != null) {
               alert("Register success");
-              window.location.href = "login.html";
+              window.location.href = `login.html`;
+              document.cookie =
+                "user=" +
+                data.userID +
+                ";path=http://127.0.0.1:5500/;SameSite=Strict;";
+              document.cookie =
+                "pass=" +
+                data.password +
+                ";path=http://127.0.0.1:5500/;SameSite=Strict;";
             } else {
               console.log(result.errors);
             }
