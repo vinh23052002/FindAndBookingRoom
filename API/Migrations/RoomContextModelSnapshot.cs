@@ -22,6 +22,37 @@ namespace API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("API.Models.Chat", b =>
+                {
+                    b.Property<int>("chatID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("chatID"), 1L, 1);
+
+                    b.Property<string>("comment")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("reviewDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("roomID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("chatID");
+
+                    b.HasIndex("roomID");
+
+                    b.HasIndex("userID");
+
+                    b.ToTable("Chats");
+                });
+
             modelBuilder.Entity("API.Models.District", b =>
                 {
                     b.Property<int>("district_id")
@@ -92,6 +123,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
                     b.Property<string>("phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -99,9 +133,8 @@ namespace API.Migrations
                     b.Property<int>("roomID")
                         .HasColumnType("int");
 
-                    b.Property<string>("sendDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("sendDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("userName")
                         .IsRequired()
@@ -141,14 +174,13 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("comment")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<float>("grade")
+                    b.Property<float?>("grade")
                         .HasColumnType("real");
 
-                    b.Property<DateTime>("reviewDate")
+                    b.Property<DateTime?>("reviewDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("roomID", "userID");
@@ -221,11 +253,14 @@ namespace API.Migrations
                     b.Property<double>("price")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("publicDate")
+                    b.Property<DateTime?>("publicDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("status")
                         .HasColumnType("bit");
+
+                    b.Property<int>("totalView")
+                        .HasColumnType("int");
 
                     b.Property<string>("userID")
                         .IsRequired()
@@ -259,9 +294,6 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("amenitiesPrice")
-                        .HasColumnType("float");
-
                     b.HasKey("amenitiesID");
 
                     b.ToTable("RoomAmenities");
@@ -273,6 +305,9 @@ namespace API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("amenitiesID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("price")
                         .HasColumnType("int");
 
                     b.HasKey("roomID", "amenitiesID");
@@ -291,7 +326,6 @@ namespace API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("fullName")
@@ -348,6 +382,25 @@ namespace API.Migrations
                     b.HasIndex("district_id");
 
                     b.ToTable("Wards");
+                });
+
+            modelBuilder.Entity("API.Models.Chat", b =>
+                {
+                    b.HasOne("API.Models.Room", "Room")
+                        .WithMany("Chats")
+                        .HasForeignKey("roomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.User", "User")
+                        .WithMany("Chats")
+                        .HasForeignKey("userID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Models.District", b =>
@@ -487,6 +540,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Room", b =>
                 {
+                    b.Navigation("Chats");
+
                     b.Navigation("Images");
 
                     b.Navigation("Messages");
@@ -503,6 +558,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.User", b =>
                 {
+                    b.Navigation("Chats");
+
                     b.Navigation("Reviews");
 
                     b.Navigation("Rooms");

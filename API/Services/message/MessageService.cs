@@ -36,6 +36,7 @@ namespace API.Services.message
 
             var message = _mapper.Map<Message>(request);
             message.sendDate = DateTime.Now;
+            message.isRead = false;
             await _messageRepository.Add(message);
             return new SuccessResponse
             {
@@ -85,6 +86,18 @@ namespace API.Services.message
             {
                 Message = "Delete Message Successfully",
 
+            };
+        }
+
+        public async Task<SuccessResponse> changeStatus(int id)
+        {
+            var message = await _messageRepository.GetById(id);
+            message.isRead = true;
+            await _messageRepository.Update(message);
+            return new SuccessResponse
+            {
+                Message = "Change Status Successfully",
+                Data = _mapper.Map<MessageResponse>(message)
             };
         }
     }

@@ -21,6 +21,7 @@ namespace API.Models
 
         public ICollection<Room> Rooms { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public ICollection<Chat> Chats { get; set; }
 
         [ForeignKey("roleID")]
         public Role Role { get; set; }

@@ -1,4 +1,5 @@
-﻿using API.Dtos.District;
+﻿using API.Dtos.Chat;
+using API.Dtos.District;
 using API.Dtos.Image;
 using API.Dtos.Message;
 using API.Dtos.Province;
@@ -50,6 +51,10 @@ namespace API.Mapper
 
             CreateMap<RoomAmenitiesMapping, RoomAmenitiesMappingResponse>();
             CreateMap<RoomAmenitiesMappingRequest, RoomAmenitiesMapping>();
+
+            CreateMap<ChatRequest, Chat>();
+            CreateMap<Chat, ChatResponse>()
+                .ForMember(x => x.userName, y => y.MapFrom(p => p.User.fullName));
 
 
         }

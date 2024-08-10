@@ -10,5 +10,6 @@ namespace API.Services.message
         Task<SuccessResponse> GetMessage(int id);
         Task<SuccessResponse> GetMessageByUserID(string userID);
         Task<SuccessResponse> GetTotalByUserID(string userID);
+        Task<SuccessResponse> changeStatus(int id);
     }
 }

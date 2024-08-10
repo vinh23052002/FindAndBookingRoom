@@ -147,7 +147,15 @@
     btnLogin.addEventListener("click", function () {
       event.preventDefault();
       const userID = document.getElementById("userID").value;
+      if (userID == "") {
+        alert("Please enter your username!!!");
+        return;
+      }
       const password = document.getElementById("password").value;
+      if (password == "") {
+        alert("Please enter your password!!!");
+        return;
+      }
       fetch("https://localhost:7140/api/User/login", {
         method: "POST",
         headers: {
@@ -173,8 +181,11 @@
             //   "userID=" + user.userID + ";path=/;SameSite=Strict;";
             window.location.href = "index.html";
           } else {
-            document.getElementById("error").innerText = data.message;
+            document.alert("UserName or Password wrong!!!");
           }
+        })
+        .catch((error) => {
+          alert("UserName or Password wrong!!!");
         });
     });
   </script>

@@ -175,6 +175,7 @@ namespace API.Services.room
             var room = _mapper.Map<Room>(request);
             room.createDate = DateTime.Now;
             room.status = false;
+            room.totalView = 0;
             await _roomRepository.Add(room);
             return new SuccessResponse
             {

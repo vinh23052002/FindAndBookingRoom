@@ -44,6 +44,7 @@ namespace API.Repositoriest.room
                 .Where(p => p.status == true && p.deleteAt == null)
                 .OrderByDescending(p => p.publicDate)
                 .OrderByDescending(p => p.status)
+                .OrderByDescending(p => p.totalView)
                 .ToListAsync();
         }
 
@@ -69,6 +70,7 @@ namespace API.Repositoriest.room
                 .Include(p => p.Ward)
                 .ThenInclude(p => p.District)
                 .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()) && p.Ward.District.province_id == provinceID)
+                .OrderByDescending(p => p.totalView)
                 .ToListAsync();
         }
 
@@ -77,6 +79,7 @@ namespace API.Repositoriest.room
             return await _context.Rooms
                 .Include(p => p.Ward)
                 .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()) && p.Ward.district_id == districtID)
+                .OrderByDescending(p => p.totalView)
                 .ToListAsync();
         }
 
@@ -86,6 +89,7 @@ namespace API.Repositoriest.room
                 .Include(p => p.Ward)
                 .ThenInclude(p => p.District)
                 .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()) && p.wardID == wardID)
+                .OrderByDescending(p => p.totalView)
                 .ToListAsync();
         }
 
@@ -93,6 +97,7 @@ namespace API.Repositoriest.room
         {
             return await _context.Rooms
                 .Where(p => p.name.ToLower().Trim().Contains(txtSearch.ToLower().Trim()))
+                .OrderByDescending(p => p.totalView)
                 .ToListAsync();
         }
     }

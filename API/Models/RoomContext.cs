@@ -19,6 +19,7 @@ namespace API.Models
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Chat> Chats { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

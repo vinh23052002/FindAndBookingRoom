@@ -36,6 +36,13 @@ namespace API.Controllers
             return Ok(response);
         }
 
+        [HttpPost("change-status/{id}")]
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+            var response = await _messageService.changeStatus(id);
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateMessage(MessageRequest request)
         {

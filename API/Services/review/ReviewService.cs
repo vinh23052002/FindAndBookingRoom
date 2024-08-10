@@ -55,20 +55,29 @@ namespace API.Services.review
 
         public async Task<SuccessResponse> AddReview(ReviewRequest request)
         {
-            if (await _roomRepository.GetById(request.roomID) == null)
-            {
-                throw new MyException((int)HttpStatusCode.NotFound, "Room not found");
-            }
+            //if (await _roomRepository.GetById(request.roomID) == null)
+            //{
+            //    throw new MyException((int)HttpStatusCode.NotFound, "Room not found");
+            //}
             if (await _userRepository.GetUserById(request.userID) == null)
             {
                 throw new MyException((int)HttpStatusCode.NotFound, "User not found");
             }
             if (await _reviewRepository.GetReview(request.roomID, request.userID) != null)
             {
-                throw new MyException((int)HttpStatusCode.BadRequest, "Review already exists");
+                //throw new MyException((int)HttpStatusCode.BadRequest, "Review already exists");
+                return new SuccessResponse
+                {
+                    Data = null,
+                    Message = "Review already exists"
+                };
             }
             var review = _mapper.Map<Review>(request);
             review.reviewDate = DateTime.Now;
+            review.comment = "";
+            review.grade = 0;
+            var room = await _roomRepository.GetById(request.roomID);
+            room.totalView += 1;
             await _reviewRepository.Add(review);
             return new SuccessResponse
             {

@@ -15,6 +15,7 @@ namespace API.Models
         public string email { get; set; }
         public string content { get; set; }
         public DateTime sendDate { get; set; }
+        public bool isRead { get; set; }
 
         [ForeignKey("roomID")]
         public Room Room { get; set; }

@@ -33,5 +33,6 @@ namespace API.Dtos.Room
         public string province { get; set; }
         public List<String> images { get; set; }
         public string actorName { get; set; }
+        public int totalView { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class InitailCreate : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,6 @@ namespace API.Migrations
                     amenitiesID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     amenitiesName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    amenitiesPrice = table.Column<double>(type: "float", nullable: false),
                     amenitiesDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -101,7 +100,7 @@ namespace API.Migrations
                     userID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     fullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     roleID = table.Column<int>(type: "int", nullable: false),
                     wardID = table.Column<int>(type: "int", nullable: false),
@@ -136,14 +135,15 @@ namespace API.Migrations
                     price = table.Column<double>(type: "float", nullable: false),
                     area = table.Column<double>(type: "float", nullable: false),
                     createDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    publicDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    publicDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     deleteAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     status = table.Column<bool>(type: "bit", nullable: false),
                     latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    longitude = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    totalView = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,6 +158,34 @@ namespace API.Migrations
                         column: x => x.wardID,
                         principalTable: "Wards",
                         principalColumn: "ward_id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Chats",
+                columns: table => new
+                {
+                    chatID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    roomID = table.Column<int>(type: "int", nullable: false),
+                    userID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    reviewDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chats", x => x.chatID);
+                    table.ForeignKey(
+                        name: "FK_Chats_Rooms_roomID",
+                        column: x => x.roomID,
+                        principalTable: "Rooms",
+                        principalColumn: "roomID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Chats_Users_userID",
+                        column: x => x.userID,
+                        principalTable: "Users",
+                        principalColumn: "userID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,7 +220,8 @@ namespace API.Migrations
                     phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sendDate = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    sendDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isRead = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,9 +240,9 @@ namespace API.Migrations
                 {
                     roomID = table.Column<int>(type: "int", nullable: false),
                     userID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    grade = table.Column<float>(type: "real", nullable: false),
-                    comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    reviewDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    grade = table.Column<float>(type: "real", nullable: true),
+                    comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    reviewDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -237,7 +266,8 @@ namespace API.Migrations
                 columns: table => new
                 {
                     roomID = table.Column<int>(type: "int", nullable: false),
-                    amenitiesID = table.Column<int>(type: "int", nullable: false)
+                    amenitiesID = table.Column<int>(type: "int", nullable: false),
+                    price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -255,6 +285,16 @@ namespace API.Migrations
                         principalColumn: "roomID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chats_roomID",
+                table: "Chats",
+                column: "roomID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chats_userID",
+                table: "Chats",
+                column: "userID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Districts_province_id",
@@ -309,6 +349,9 @@ namespace API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Chats");
+
             migrationBuilder.DropTable(
                 name: "Images");
 

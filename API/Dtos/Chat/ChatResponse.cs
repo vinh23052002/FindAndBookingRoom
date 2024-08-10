@@ -1,23 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Models
+namespace API.Dtos.Chat
 {
-    public class Review
+    public class ChatResponse
     {
+        public int chatID { get; set; }
         public int roomID { get; set; }
         public string userID { get; set; }
-        [Range(1, 5)]
-        public float? grade { get; set; }
+        public string userName { get; set; }
         [StringLength(500)]
         public string? comment { get; set; }
         [DataType(DataType.Date)]
         public DateTime? reviewDate { get; set; }
-
-        [ForeignKey("roomID")]
-        public Room Room { get; set; }
-        [ForeignKey("userID")]
-        public User User { get; set; }
-
     }
 }

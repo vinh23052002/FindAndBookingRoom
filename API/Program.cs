@@ -1,6 +1,7 @@
 using API.Dtos.Room;
 using API.Dtos.User;
 using API.Models;
+using API.Repositoriest.chat;
 using API.Repositoriest.district;
 using API.Repositoriest.image;
 using API.Repositoriest.message;
@@ -12,6 +13,7 @@ using API.Repositoriest.room_amenities;
 using API.Repositoriest.room_amenties_mapping;
 using API.Repositoriest.user;
 using API.Repositoriest.ward;
+using API.Services.chat;
 using API.Services.district;
 using API.Services.image;
 using API.Services.message;
@@ -73,6 +75,9 @@ namespace API
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddScoped<IChatRepository, ChatRepository>();
+            builder.Services.AddScoped<IChatService, ChatService>();
 
             // Add service of validation
             builder.Services.AddScoped<IValidator<RoomAddRequest>, RoomAddValidator>();

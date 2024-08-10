@@ -28,11 +28,13 @@ namespace API.Models
         public Boolean status { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
+        public int totalView { get; set; }
 
         public ICollection<Image> Images { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Message> Messages { get; set; }
         public ICollection<RoomAmenitiesMapping> RoomAmenitiesMappings { get; set; }
+        public ICollection<Chat> Chats { get; set; }
 
 
         [ForeignKey("wardID")]

@@ -294,6 +294,88 @@
 
                   <!-- ------------------------------------------------------------ -->
                 </div>
+                <div
+                  class="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page"
+                >
+                  <h5 class="mb-4">Leave Comment</h5>
+                  <!-- <p class="mb-2">Rate the Place</p> -->
+                  <div class="mb-4">
+                    <span class="star-rating">
+                      <a href="#"
+                        ><i class="icofont-ui-rating icofont-2x"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont-ui-rating icofont-2x"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont-ui-rating icofont-2x"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont-ui-rating icofont-2x"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont-ui-rating icofont-2x"></i
+                      ></a>
+                    </span>
+                  </div>
+                  <form>
+                    <div class="form-group">
+                      <label>Your Comment</label>
+                      <textarea class="form-control" id="comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        class="btn btn-primary btn-sm"
+                        type="button"
+                        onclick="submitComment()"
+                      >
+                        Submit Comment
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <h5 class="mb-1">All Ratings and Reviews</h5>
+                <div class="reviews-members pt-4 pb-4">
+                  <!-- <div class="media">
+                    <div class="media-body">
+                      <div class="reviews-members-header">
+                        <span class="star-rating float-right">
+                          <a href="#"
+                            ><i class="icofont-ui-rating active"></i
+                          ></a>
+                          <a href="#"
+                            ><i class="icofont-ui-rating active"></i
+                          ></a>
+                          <a href="#"
+                            ><i class="icofont-ui-rating active"></i
+                          ></a>
+                          <a href="#"
+                            ><i class="icofont-ui-rating active"></i
+                          ></a>
+                          <a href="#"><i class="icofont-ui-rating"></i></a>
+                        </span>
+                        <h6 class="mb-1">
+                          <a class="text-black" href="#">Singh Osahan</a>
+                        </h6>
+                        <p class="text-gray">Tue, 20 Mar 2020</p>
+                      </div>
+                      <div class="reviews-members-body">
+                        <p>
+                          Contrary to popular belief, Lorem Ipsum is not simply
+                          random text. It has roots in a piece of classical
+                          Latin literature from 45 BC, making it over 2000 years
+                          old. Richard McClintock, a Latin professor at
+                          Hampden-Sydney College in Virginia, looked up one of
+                          the more obscure Latin words, consectetur, from a
+                          Lorem Ipsum passage, and going through the cites of
+                          the word in classical literature, discovered the
+                          undoubtable source. Lorem Ipsum comes from sections
+                        </p>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
               </div>
               <!-- Pills content -->
             </div>
@@ -620,6 +702,7 @@ Tôi quan tâm đến phòng trọ của bạn </textarea
         }
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
+        var ownerId = 0;
         console.log("id", id);
 
         var mapLocation = {};
@@ -629,6 +712,8 @@ Tôi quan tâm đến phòng trọ của bạn </textarea
             .then((response) => response.json())
             .then((response) => {
               var data = response.data;
+              console.log("ROOM", data);
+              ownerId = data.userID;
               if (data.roleID != "1") {
                 document.querySelector(".admin").style.display = "none";
               }
@@ -955,6 +1040,87 @@ Tôi quan tâm đến phòng trọ của bạn </textarea
         }).then((object) => {
           console.log(object);
         });
+      </script>
+      <script>
+        const loadComment = async () => {
+          fetch(`https://localhost:7140/api/Chat/By-Room/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("CHAT", data);
+              var html = "";
+              Array.from(data.data).forEach((element) => {
+                html += `
+              <div class="media">
+
+                   <div class="media-body">
+                     <div class="reviews-members-header">
+                       <span class="star-rating float-right">
+                         <a href="#"
+                           ><i class="icofont-ui-rating active"></i
+                         ></a>
+                         <a href="#"
+                           ><i class="icofont-ui-rating active"></i
+                         ></a>
+                         <a href="#"
+                           ><i class="icofont-ui-rating active"></i
+                         ></a>
+                         <a href="#"
+                           ><i class="icofont-ui-rating active"></i
+                         ></a>
+                         <a href="#"><i class="icofont-ui-rating"></i></a>
+                       </span>
+                       <h6 class="mb-1 d-flex">
+                         <a class="text-black " href="#" style = "margin-right: 10px">${
+                           element.userName
+                         } ${element.userID == ownerId ? "(Owner)" : ""}</a>
+                       </h6>
+                       <p class="text-gray" style = "font-size:10px">${
+                         element.reviewDate.split("T")[0]
+                       }</p>
+                     </div>
+                     <div class="reviews-members-body">
+                       <p>
+                          ${element.comment}
+                       </p>
+                     </div>
+                   </div>
+                 </div>
+              `;
+                document.querySelector(".reviews-members").innerHTML = html;
+              });
+            });
+        };
+        loadComment();
+      </script>
+      <script>
+        const submitComment = () => {
+          var comment = document.getElementById("comment").value;
+          if (comment == "") {
+            alert("Vui lòng nhập bình luận");
+            return;
+          }
+          var data = {
+            roomID: id,
+            userID: getCookie("userID"),
+            comment: comment,
+          };
+          fetch("https://localhost:7140/api/Chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }).then((object) => {
+            console.log(object);
+            if (object.status == 200) {
+              alert("Gửi bình luận thành công");
+              loadComment();
+            } else {
+              alert("Gửi bình luận thất bại");
+              console.log("error", object.error);
+            }
+          });
+        };
       </script>
     </footer>
   </body>

@@ -14,5 +14,6 @@ namespace API.Dtos.Message
         public string content { get; set; }
         public DateTime sendDate { get; set; }
         public string roomName { get; set; }
+        public bool isRead { get; set; }
     }
 }
